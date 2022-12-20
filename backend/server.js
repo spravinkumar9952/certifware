@@ -9,6 +9,13 @@ const port = 8080;
 // json bodyparser
 app.use(bodyParser.json());
 
+app.get('/welcomeMsg', (req, res)=>{
+    res.send({
+        msg : 'Hello Welcome to Certifware'
+    });
+});
+
+
 // Home page
 app.get('/', (req, res)=>{
     res.send("Node JS Home Page!");
