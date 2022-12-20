@@ -4,3 +4,8 @@ Certifware is a website act like an warehouse for store and show case the certif
 # Backend Dependencies
 
 # install Dependencies
+`cd frontend`
+`npm install`
+`cd ..`
+`cd backend`
+`npm install`
