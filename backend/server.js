@@ -1,10 +1,5 @@
 import Express  from "express";
 import bodyParser from "body-parser";
-import session from "express-session";
-import passport from "passport";
-import { User } from "./model/database.js";
-
-
 
 // Express app
 const app = Express();
@@ -99,6 +94,7 @@ app.post("/login", function(req, res){
 
 
 
+app.use(cors());
 
 app.get('/welcomeMsg', (req, res)=>{
     res.send({
