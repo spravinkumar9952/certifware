@@ -1,5 +1,6 @@
 import Express  from "express";
 import bodyParser from "body-parser";
+import cors from 'cors';
 
 // Express app
 const app = Express();
@@ -8,6 +9,7 @@ const port = 8080;
 
 // json bodyparser
 app.use(bodyParser.json());
+app.use(cors());
 
 app.get('/welcomeMsg', (req, res)=>{
     res.send({
