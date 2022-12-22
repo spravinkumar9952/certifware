@@ -2,18 +2,18 @@ import React from "react";
 import { useState } from "react";
 
 const Register = (props) => {
+    // states
     const[email,setEmail]=useState("");
     const[userName,setUserName]=useState("");
     const[password,setPassword]=useState("");
     const[confirmPassword,setConfirmPassword]=useState("");
 
-
+    // bind the user details and send to Main component
     const submit = (event) => {
-        console.log("Submitted");
+        console.log("Submitted at registration");
         event.preventDefault(); 
         const userDetails = {email,userName,password,confirmPassword};
         props.onSubmit(userDetails);
-        
     }
 
     return (
