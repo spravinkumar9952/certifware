@@ -8,7 +8,7 @@ const Main=()=> {
     const sendUserDetails = (userDetails) => {
         console.log(userDetails);
         axios.post(url,userDetails).then((response) => {
-            console.log(response);
+            console.log(response.message);
         })
     }
 

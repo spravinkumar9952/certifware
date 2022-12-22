@@ -1,5 +1,10 @@
 import Express  from "express";
 import bodyParser from "body-parser";
+import session from "express-session";
+import passport from "passport";
+import { User } from "./model/database.js";
+import cors from "cors";
+
 
 // Express app
 const app = Express();
@@ -7,6 +12,7 @@ const app = Express();
 const port = 8080;
 
 // json bodyparser
+app.use(cors());
 app.use(bodyParser.json());
 app.use(Express.static("public"));
 app.use(bodyParser.urlencoded({extended : true}));
@@ -21,8 +27,15 @@ app.set('view engine', 'ejs');
 
 
 passport.use(User.createStrategy());
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+// passport.serializeUser(User.serializeUser());
+// passport.deserializeUser(User.deserializeUser());
+passport.serializeUser(function(user, done) {
+    done(null, user);
+  });
+  
+  passport.deserializeUser(function(user, done) {
+    done(null, user);
+  });
 
 
 
@@ -40,7 +53,7 @@ app.get("/register", function(req, res){
 
 app.get("/secrets", function(req, res){
     
-    if (req.isAuthenticated()) {
+    if (req.isAuthenticated) {
         res.render("secrets");
     }
     else {
@@ -59,22 +72,25 @@ app.get('/logout', function(req, res, next) {
   
 
 app.post("/register", function(req, res){
-    User.register({username : req.body.username}, req.body.password, function(err, user){
+    User.register({username : req.body.userName}, req.body.password, function(err, user){
         if (err) {
             console.log(err);
-            res.redirect("/register");
+            // res.redirect("/register");
+            // res.send({ redirect : "/login"});
         }
         else {
             passport.authenticate("local")(req, res, function(){
-                res.redirect("/secrets");
+                // res.redirect("/secrets");
+                // res.send({redirect : "/secrets"});
             });
+            
         }
     })
 });
 
 app.post("/login", function(req, res){
     const user = new User({
-        username : req.body.username,
+        username : req.body.userName,
         password : req.body.password
     });
     req.login(user, function(err){
@@ -90,17 +106,6 @@ app.post("/login", function(req, res){
     })
 });
 
-
-
-
-
-app.use(cors());
-
-app.get('/welcomeMsg', (req, res)=>{
-    res.send({
-        msg : 'Hello Welcome to Certifware'
-    });
-});
 
 
 // Home page
