@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import './Register.css'
 
 const Register = (props) => {
     // states
@@ -17,23 +18,23 @@ const Register = (props) => {
     }
 
     return (
-        <div>
+        <div className="register">
             <div>
                 <form onSubmit={submit}>
-                    <div>
-                        <label>Email</label>
+                    <div className="field">
+                        <label className="labl">Email</label>
                         <input type="email" onChange={(event) => setEmail(event.target.value)}/>
                     </div>
-                    <div>
-                        <label>Username</label>
+                    <div className="field">
+                        <label className="labl">Username</label>
                         <input type="text" onChange={(event) => setUserName(event.target.value)}/>
                     </div>
-                    <div>
-                        <label>Password</label>
+                    <div className="field">
+                        <label className="labl">Password</label>
                         <input type="password" onChange={(event) => setPassword(event.target.value)}/>
                     </div>
-                    <div>
-                        <label>Confirm Password</label>
+                    <div className="field">
+                        <label className="labl">Confirm Password</label>
                         <input type="password" onChange={(event) => setConfirmPassword(event.target.value)}/>
                     </div>
                     <button>Submit</button>

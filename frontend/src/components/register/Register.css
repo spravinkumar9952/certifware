@@ -1,0 +1,10 @@
+.register {
+    text-align: center;
+}
+.field {
+    margin: 15px;
+}
+.labl {
+    display: inline block;
+    width: 100px;
+}

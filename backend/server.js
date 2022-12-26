@@ -74,18 +74,26 @@ app.get('/logout', function(req, res, next) {
 app.post("/register", function(req, res){
     User.register({username : req.body.userName}, req.body.password, function(err, user){
         if (err) {
+            console.log("error")
             console.log(err);
-            // res.redirect("/register");
-            // res.send({ redirect : "/login"});
+            res.send({response:"failure"});
         }
         else {
-            passport.authenticate("local")(req, res, function(){
-                // res.redirect("/secrets");
-                // res.send({redirect : "/secrets"});
-            });
-            
+            res.send({response:"success"});
+            // try {
+            //     passport.authenticate("local")(req, res,function(){
+            //         // res.redirect("/secrets");
+            //         // res.send({redirect : "/secrets"});
+            //         // console.log("success");
+            //         // auth=true;
+            //         // res.send({response:"success"});
+            //         // return;
+            //     });
+            // } 
         }
     })
+    console.log("out");
+    
 });
 
 app.post("/login", function(req, res){

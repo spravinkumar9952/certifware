@@ -1,4 +1,5 @@
 import React from "react";
+import {useState} from 'react';
 
 const Login = (props) => {
     // states
@@ -13,7 +14,7 @@ const Login = (props) => {
         props.onSubmit(loginDetails);
     }
     return (
-        <div>
+        <div className="login">
             <div>
                 <form onSubmit={submit}>
                     <div>
