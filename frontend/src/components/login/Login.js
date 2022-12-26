@@ -1,5 +1,6 @@
 import React from "react";
 import {useState} from 'react';
+import { Link } from "react-router-dom";    
 
 const Login = (props) => {
     // states
@@ -17,15 +18,19 @@ const Login = (props) => {
         <div className="login">
             <div>
                 <form onSubmit={submit}>
-                    <div>
-                        <label>Username</label>
+                    <div className="field">
+                        <label  className="labl">Username</label>
                         <input type="text" onChange={(event) => setUserName(event.target.value)}/>
                     </div>
-                    <div>
-                        <label>Password</label>
+                    <div className="field">
+                        <label  className="labl">Password</label>
                         <input type="password" onChange={(event) => setPassword(event.target.value)}/>
                     </div>
                     <button>Submit</button>
+                    <h1></h1>
+                    <Link to="/">
+                        <button>Signup</button>
+                    </Link>
                 </form>
             </div>
         </div>

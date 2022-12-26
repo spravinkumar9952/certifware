@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import './Register.css'
 
 const Register = (props) => {
@@ -37,7 +38,13 @@ const Register = (props) => {
                         <label className="labl">Confirm Password</label>
                         <input type="password" onChange={(event) => setConfirmPassword(event.target.value)}/>
                     </div>
-                    <button>Submit</button>
+                    <Link to="/login">
+                        <button>Submit</button>
+                    </Link>
+                    <h6>Already have an account</h6>
+                    <Link to="/login">
+                        <button>Login</button>
+                    </Link>
                 </form>
             </div>
         </div>
