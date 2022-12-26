@@ -29,12 +29,13 @@ const Main=()=> {
         <div>
             <Register onSubmit={sendUserDetails}/>
             {console.log({path})};
-            {/* <Route path="/" element={<Register onSubmit={sendUserDetails}/>}/>
+            
             <BrowserRouter>
                 <Routes>
+                    {/* <Route path="/" element={<Register onSubmit={sendUserDetails}/>}/> */}
                     <Route path="/login" element={<Login onSubmit={sendUserDetails}/>}/>
                 </Routes>
-            </BrowserRouter> */}
+            </BrowserRouter>
         </div>
     )
 }
