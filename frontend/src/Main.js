@@ -60,10 +60,8 @@ const Main=()=> {
                 <Routes>
                     <Route path="/" element={<Register onSubmit={sendRegUserDetails}/>}/>
                     <Route path="/login" element={<Login onSubmit={sendLoginUserDetails}/>}/>
-                    {/* <Route path="/" element={<Register onSubmit={sendUserDetails}/>}/> */}
-                    <Route path="/login" element={<Login onSubmit={sendUserDetails}/>}/>
                 </Routes>
-            </BrowserRouter> */}
+            </BrowserRouter> 
         </div>
     )
 }
