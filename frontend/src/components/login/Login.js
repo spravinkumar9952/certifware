@@ -1,8 +1,9 @@
 import React from "react";
 import {useState} from 'react';
-import { Link } from "react-router-dom";    
+import { Link } from "react-router-dom"; 
+import "./Login.css"   
 
-const Login = (props) => {
+export const Login = (props) => {
     // states
     const[userName,setUserName]=useState("")
     const[password,setPassword]=useState("")
@@ -26,7 +27,7 @@ const Login = (props) => {
                         <label  className="labl">Password</label>
                         <input type="password" onChange={(event) => setPassword(event.target.value)}/>
                     </div>
-                    <button>Submit</button>
+                    <input type="submit" value="Login"/>
                     <h1></h1>
                     <Link to="/">
                         <button>Signup</button>

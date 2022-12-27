@@ -40,10 +40,7 @@ const Register = (props) => {
                         <label className="labl">Confirm Password</label>
                         <input type="password" onChange={(event) => setConfirmPassword(event.target.value)}/>
                     </div>
-
-
-                        <input type="submit" value="submit"/>
-
+                    <input type="submit" value="Register"/>
                     <h6>Already have an account</h6>
                     <Link to="/login">
                         <button>Login</button>
