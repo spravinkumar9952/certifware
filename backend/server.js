@@ -1,3 +1,6 @@
+import dotenv from 'dotenv';
+dotenv.config();
+
 import Express  from "express";
 import bodyParser from "body-parser";
 import session from "express-session";
@@ -9,13 +12,11 @@ import path from "path";
 
 
 
-// Express app
-const app = Express();
-// port number
-const port = 8080;
-// const upload = multer({dest : "certificates/"});
 
-// json bodyparser
+const app = Express();
+const port = process.env.PORT_NUMBER;
+
+
 app.use(cors());
 app.use(bodyParser.json());
 app.use(Express.static("public"));
@@ -118,11 +119,14 @@ app.post("/register", function(req, res){
     User.register({username : req.body.username}, req.body.password, function(err, user){
         if (err) {
             console.log(err);
-            res.redirect("/register");
+            res.send({response: "fail"})
+            // res.redirect("/register");
         }
         else {
             passport.authenticate("local")(req, res, function(){
-                res.redirect("/secrets");
+                // res.redirect("/secrets");
+                console.log("Hello");
+                res.send({response : "success"})
             });
         }
     })

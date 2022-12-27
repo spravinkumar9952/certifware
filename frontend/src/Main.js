@@ -4,7 +4,7 @@ import Register from "./components/register/Register";
 import Login from "./components/login/Login";
 import UserPage from "./components/userPage/UserPage";
 import { useState } from "react";
-import {BrowserRouter,Routes,Route} from 'react-router-dom';
+import {BrowserRouter,Routes,Route,Link} from 'react-router-dom';
 
 
 
@@ -28,13 +28,9 @@ const Main=()=> {
         axios.post(regUrl,userDetails)
         .then((response) => {
             if(response.data.response==="success") {
-                setPathfromReg(true);
-                window.location.href="/login";
-            } else {
-                alert("Username already exists");
-                window.location.href="/";
+                setPathfromReg("/login");
             }
-            console.log(response);
+            console.log("Response: "+response);
         }).catch((err)=> {
             console.log("err");
             console.log(err);
@@ -63,11 +59,10 @@ const Main=()=> {
         <div>
             <BrowserRouter>
                 <Routes>
-                        <Route path="/" element={<Register onSubmit={sendRegUserDetails}/>}/>
-                        <Route path="/login" element={<Login onSubmit={sendLoginUserDetails}/>}/>
-                        <Route path="/userpage" element={<UserPage/>}/>
+                    <Route path="/" element={<Register onSubmit={sendRegUserDetails}/>}/>
+                    <Route path="/login" element={<Login onSubmit={sendLoginUserDetails}/>}/>
                 </Routes>
-            </BrowserRouter>
+            </BrowserRouter> 
         </div>
     )
 }
