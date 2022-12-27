@@ -4,12 +4,16 @@ import session from "express-session";
 import passport from "passport";
 import { User } from "./model/database.js";
 import cors from "cors";
+import multer from "multer";
+import path from "path";
+
 
 
 // Express app
 const app = Express();
 // port number
 const port = 8080;
+// const upload = multer({dest : "certificates/"});
 
 // json bodyparser
 app.use(cors());
@@ -27,15 +31,52 @@ app.set('view engine', 'ejs');
 
 
 passport.use(User.createStrategy());
-// passport.serializeUser(User.serializeUser());
-// passport.deserializeUser(User.deserializeUser());
-passport.serializeUser(function(user, done) {
-    done(null, user);
-  });
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+// passport.serializeUser(function(user, done) {
+//     done(null, user);
+//   });
   
-  passport.deserializeUser(function(user, done) {
-    done(null, user);
-  });
+//   passport.deserializeUser(function(user, done) {
+//     done(null, user);
+//   });
+
+// -------------------------------------------------------------------------------
+//   Certificate Upload Section
+// ------------------------------------------------------------------------------
+const imageStorage = multer.diskStorage({
+    // Destination to store image     
+    destination: 'images', 
+    filename: (req, file, cb) => {
+        cb(null, file.fieldname + '_' + Date.now() + path.extname(file.originalname))
+            // file.fieldname is name of the field (image)
+            // path.extname get the uploaded file extension
+    }
+});
+const imageUpload = multer({
+    storage: imageStorage,
+    limits: {
+        fileSize: 1000000 // 1000000 Bytes = 1 MB
+    },
+    fileFilter(req, file, cb) {
+        if (!file.originalname.match(/\.(png|jpg|pdf)$/)) {
+            // upload only png and jpg format
+            return cb(new Error('Please upload a Image'))
+        }
+        cb(undefined, true)
+    }
+}) 
+
+app.post("/upload", imageUpload.single('certificate'),(req, res)=>{
+    console.log(req.files);
+    console.log(req.body);
+    res.send(req.file);
+})
+
+app.get("/upload", (req, res)=>{
+    res.render("upload");
+})
+// -----------------------------------------------------------------------------
 
 
 
@@ -71,34 +112,25 @@ app.get('/logout', function(req, res, next) {
   });
   
 
+
 app.post("/register", function(req, res){
-    User.register({username : req.body.userName}, req.body.password, function(err, user){
+
+    User.register({username : req.body.username}, req.body.password, function(err, user){
         if (err) {
-            console.log("error")
             console.log(err);
-            res.send({response:"failure"});
+            res.redirect("/register");
         }
         else {
-            res.send({response:"success"});
-            // try {
-            //     passport.authenticate("local")(req, res,function(){
-            //         // res.redirect("/secrets");
-            //         // res.send({redirect : "/secrets"});
-            //         // console.log("success");
-            //         // auth=true;
-            //         // res.send({response:"success"});
-            //         // return;
-            //     });
-            // } 
+            passport.authenticate("local")(req, res, function(){
+                res.redirect("/secrets");
+            });
         }
     })
-    console.log("out");
-    
 });
 
 app.post("/login", function(req, res){
     const user = new User({
-        username : req.body.userName,
+        username : req.body.username,
         password : req.body.password
     });
     req.login(user, function(err){
