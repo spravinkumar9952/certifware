@@ -14,6 +14,7 @@ const loginUrl="http://localhose:8080/login";
 
 // Driver code
 const Main=()=> {
+    // 
     // states
     const[pathFromReg, setPathfromReg] = useState(false)
     const[pathFromLogin, setPathfromLogin] = useState("")
@@ -28,8 +29,12 @@ const Main=()=> {
         .then((response) => {
             if(response.data.response==="success") {
                 setPathfromReg("/login");
+                window.location.href="/login";
+            } else {
+                alert("Username already exists");
+                window.location.href="/";
             }
-            console.log("Response: "+response);
+            console.log(response);
         }).catch((err)=> {
             console.log("err");
             console.log(err);
@@ -45,7 +50,7 @@ const Main=()=> {
                 setPathfromLogin("/UserPage")
                 window.location.href="/UserPage"
             } else {
-                setPathfromLogin("/")
+                setPathfromLogin("/login")
                 window.location.href="/login"
             }
             console.log(response);
@@ -60,6 +65,7 @@ const Main=()=> {
                 <Routes>
                     <Route path="/" element={<Register onSubmit={sendRegUserDetails}/>}/>
                     <Route path="/login" element={<Login onSubmit={sendLoginUserDetails}/>}/>
+                    <Route path="/userpage" element={<UserPage/>}/>
                 </Routes>
             </BrowserRouter> 
         </div>
