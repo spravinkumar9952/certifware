@@ -4,7 +4,7 @@ import Register from "./components/register/Register";
 import Login from "./components/login/Login";
 import { useState } from "react";
 import {BrowserRouter,Routes,Route,Link} from 'react-router-dom';
-
+import { json } from "react-router-dom";
 
 
 // URLs
@@ -26,8 +26,9 @@ const Main=()=> {
         .then((response) => {
             if(response.data.response==="success") {
                 setPathfromReg("/login");
+            }else{
+                setPa
             }
-            console.log("Response: "+response);
         }).catch((err)=> {
             console.log(err);
         })
@@ -54,10 +55,8 @@ const Main=()=> {
                 <Routes>
                     <Route path="/" element={<Register onSubmit={sendRegUserDetails}/>}/>
                     <Route path="/login" element={<Login onSubmit={sendLoginUserDetails}/>}/>
-                    {/* <Route path="/" element={<Register onSubmit={sendUserDetails}/>}/> */}
-                    <Route path="/login" element={<Login onSubmit={sendUserDetails}/>}/>
                 </Routes>
-            </BrowserRouter> */}
+            </BrowserRouter> 
         </div>
     )
 }

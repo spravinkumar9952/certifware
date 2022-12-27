@@ -6,15 +6,17 @@ import './Register.css'
 const Register = (props) => {
     // states
     const[email,setEmail]=useState("");
-    const[userName,setUserName]=useState("");
+    const[username,setUserName]=useState("");
     const[password,setPassword]=useState("");
     const[confirmPassword,setConfirmPassword]=useState("");
 
     // bind the user details and send to Main component
     const submit = (event) => {
+        
         console.log("Submitted at registration");
         event.preventDefault(); 
-        const userDetails = {email,userName,password,confirmPassword};
+        const userDetails = {email,username,password,confirmPassword};
+        console.log(userDetails);
         props.onSubmit(userDetails);
     }
 
@@ -38,9 +40,10 @@ const Register = (props) => {
                         <label className="labl">Confirm Password</label>
                         <input type="password" onChange={(event) => setConfirmPassword(event.target.value)}/>
                     </div>
-                    <Link to="/login">
-                        <button>Submit</button>
-                    </Link>
+
+
+                        <input type="submit" value="submit"/>
+
                     <h6>Already have an account</h6>
                     <Link to="/login">
                         <button>Login</button>
