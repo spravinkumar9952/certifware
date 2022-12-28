@@ -8,6 +8,7 @@ import {BrowserRouter,Routes,Route,Link} from 'react-router-dom';
 
 
 
+
 // URLs
 const regUrl="http://localhost:8080/register";
 const loginUrl="http://localhost:8080/login";

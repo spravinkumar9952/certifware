@@ -5,12 +5,19 @@ import Express  from "express";
 import bodyParser from "body-parser";
 import session from "express-session";
 import passport from "passport";
-import { User } from "./model/database.js";
+import { User, Certificate } from "./model/database.js";
 import cors from "cors";
 import multer from "multer";
 import path from "path";
+import fs from "fs";
+import { promisify } from 'util';
 
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+const unlinkAsync = promisify(fs.unlink);
 
 
 const app = Express();
@@ -68,10 +75,34 @@ const imageUpload = multer({
     }
 }) 
 
-app.post("/upload", imageUpload.single('certificate'),(req, res)=>{
-    console.log(req.files);
-    console.log(req.body);
-    res.send(req.file);
+app.post("/upload", imageUpload.single('certificate'),async (req, res)=>{
+    const certificateObj = {
+        img: {
+            data: fs.readFileSync(path.join(__dirname +"/images/"+req.file.filename)),
+            contentType: 'image/png'
+        }
+    }
+
+    Certificate.create(certificateObj, (err, item) =>{
+        if(err){
+            console.log(err);
+        }else{
+            res.redirect("/display");
+        }
+    })
+
+    await unlinkAsync(req.file.path)
+})
+
+app.get("/display", (req, res)=>{
+    Certificate.find({}, (err, items) =>{
+        if(err){
+            console.log(err);
+            res.status(500).send("Oops");
+        }else{
+            res.render("display", {items: items});
+        }
+    })
 })
 
 app.get("/upload", (req, res)=>{
@@ -137,14 +168,17 @@ app.post("/login", function(req, res){
         username : req.body.username,
         password : req.body.password
     });
+    console.log(user);
     req.login(user, function(err){
         if (err) {
             console.log(err);
-            res.redirect("/login");
+            // res.redirect("/login");
+            res.send({response : "fail"});
         }
         else {
             passport.authenticate("local")(req, res, function(){
-                res.redirect("/secrets");
+                // res.redirect("/secrets");
+                res.send({response : "success"});
             });
         }
     })
@@ -156,6 +190,7 @@ app.post("/login", function(req, res){
 app.get('/', (req, res)=>{
     res.send("Node JS Home Page!");
 });
+
 
 // Server listening port 
 app.listen(port, (req, res) =>{
