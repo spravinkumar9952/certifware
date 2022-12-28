@@ -10,7 +10,7 @@ import {BrowserRouter,Routes,Route,Link} from 'react-router-dom';
 
 // URLs
 const regUrl="http://localhost:8080/register";
-const loginUrl="http://localhose:8080/login";
+const loginUrl="http://localhost:8080/login";
 
 // Driver code
 const Main=()=> {
@@ -51,6 +51,7 @@ const Main=()=> {
                 window.location.href="/UserPage"
             } else {
                 setPathfromLogin("/login")
+                alert("Invalid username or password");
                 window.location.href="/login"
             }
             console.log(response);
