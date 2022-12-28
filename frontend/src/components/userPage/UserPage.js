@@ -3,8 +3,8 @@ import { useState } from "react";
 
 const UserPage = () => {
     return (
-        <div>Welcome</div>
-
+        <NavBar />
+        <MainPage />
     )
 }
 
