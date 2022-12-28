@@ -20,12 +20,12 @@ const Main=()=> {
     const[pathFromReg, setPathfromReg] = useState(false)
     const[pathFromLogin, setPathfromLogin] = useState("")
 
-    let user=null;
+    let user="ram";
 
     // send registered details of user to server 
     const sendRegUserDetails = (userDetails) => {
-        console.log(userDetails)
-        user = userDetails.userName;
+        // console.log(userDetails)
+        // user = userDetails;
         axios.post(regUrl,userDetails)
         .then((response) => {
             if(response.data.response==="success") {
@@ -41,6 +41,8 @@ const Main=()=> {
             console.log(err);
         })
     }
+
+    let name="ramm";
 
     // send logged in details of user to server 
     const sendLoginUserDetails = (userDetails) => {
