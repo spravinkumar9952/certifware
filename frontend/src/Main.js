@@ -6,23 +6,19 @@ import UserPage from "./components/userPage/UserPage";
 import { useState } from "react";
 import {BrowserRouter,Routes,Route,Link} from 'react-router-dom';
 
-
-
-
 // URLs
 const regUrl="http://localhost:8080/register";
 const loginUrl="http://localhost:8080/login";
 
 // Driver code
 const Main=()=> {
-    // 
+
     // states
     const[pathFromReg, setPathfromReg] = useState(false)
     const[pathFromLogin, setPathfromLogin] = useState("")
 
-    let user="ram";
-
-    // send registered details of user to server 
+    
+    // ---------------------------send registered details of user to server--------
     const sendRegUserDetails = (userDetails) => {
         // console.log(userDetails)
         // user = userDetails;
@@ -41,17 +37,17 @@ const Main=()=> {
             console.log(err);
         })
     }
+    // ---------------------------------------------------------------------------
 
-    let name="ramm";
 
-    // send logged in details of user to server 
+    // ----------------send logged in details of user to server-------------------
     const sendLoginUserDetails = (userDetails) => {
         console.log(userDetails);
         axios.post(loginUrl,userDetails)
         .then((response) => {
             if(response.data.response==="success") {
                 setPathfromLogin("/UserPage")
-                window.location.href="/UserPage"
+                window.location.href="/userpage"
             } else {
                 setPathfromLogin("/login")
                 alert("Invalid username or password");
@@ -62,6 +58,7 @@ const Main=()=> {
             console.log(err);
         })
     }
+    // ---------------------------------------------------------------------------
 
     return (
         <div>

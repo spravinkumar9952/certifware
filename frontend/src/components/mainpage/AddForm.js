@@ -14,29 +14,29 @@ const AddForm = (props) => {
     const[state,setState] = useState(false)
     const[dataFromServer,setDataFromServer] = useState(null)
     
+    // -------------------------Change the state for popup window-----------------
     const handleFile = (event) => {
         setState(!state)
     }
+    // ---------------------------------------------------------------------------
 
 
+    // --------------------Child to Parent Props Passing--------------------------
     const bind = (event) => {
         handleFile();
         event.preventDefault();
         const fileDetails = {name,domain,image,id,url};
         console.log(fileDetails)
-        axios.post(fileUrl,fileDetails);
-        axios.get(fileUrl).then((response) => {
-            setDataFromServer(response);
-        })
-        props.display(dataFromServer);
+        // axios.post(fileUrl,fileDetails);
+        // axios.get(fileUrl).then((response) => {
+        //     setDataFromServer(response);
+        // }).catch(err) {
+        //    console.log("Error in adding form");
+        // }
+        props.display(fileDetails);
     }
+    // ---------------------------------------------------------------------------
 
-
-    if(state) {
-        document.body.classList.add('active')
-    } else {
-        document.body.classList.remove('active')
-    }
 
 
     return (

@@ -1,12 +1,14 @@
 import React from "react";
 import { useState } from "react";
 import AddForm from "./AddForm";
-import "./Popup.css";
 import View from "./View";
+// import "./Scroll.css"
 
-const MainPage = () => {
+const MainPage = (props) => {
     const[data,setData] = useState([]);
+    const[groupname,setGroupName] = useState(props.name);
 
+    // ---------------------Called by AddForm Component(Parent) to set the details---------------
     const display = (fileDetails) => {
         console.log("MainPage");
         const certificate_image = fileDetails.image;
@@ -18,16 +20,33 @@ const MainPage = () => {
         }
         setData([...data,obj])  
     }
+    // -------------------------------------------------------------------------------------------
+
+    // ---------------------------------Remove certificate----------------------------------------
+    const remove = (certId) => {
+        const temp = data.filter((obj) => {
+            if(obj.id === certId) return false;
+            else return true;
+        })
+        setData(temp);
+    }
+    // -------------------------------------------------------------------------------------------
 
     return (
         <>
-            <AddForm display={display}/>
-            <div>
-                {data.map((details) => {
-                    return <li style={{display:"inline-block",margin:"10px"}}>
-                        <View key={details.id} name={details.name} img={details.img}/>
-                    </li>
-                })}
+            <div className="scr-bg">
+                <div className="scr-div">
+                    <div className="scr-obj">
+                        <AddForm display={display}/>
+                        <div>
+                            {data.map((details) => {
+                                return <li style={{display:"inline-block",margin:"10px"}}> 
+                                    <View name={details.name} img={details.img} id={details.id} remove={remove}/>
+                                </li>
+                            })}
+                        </div>
+                    </div>
+                </div>
             </div>
         </>
     )
