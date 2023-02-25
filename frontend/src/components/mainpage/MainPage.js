@@ -1,5 +1,6 @@
 import React from "react";
-import { useState,axios} from "react";
+import axios from "axios";
+import { useState} from "react";
 import AddForm from "./AddForm";
 import View from "./View";
 
