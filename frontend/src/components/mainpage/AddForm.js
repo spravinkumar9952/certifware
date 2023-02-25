@@ -24,10 +24,10 @@ const AddForm = (props) => {
     const bind = (event) => {
         handleFile();
         event.preventDefault();
-        console.log(fileDetails)
         const data = new FormData();
         data.append('certificate', image);
-        const fileDetails = {data}
+        const fileDetails = {name,domain,image,id,data}
+        console.log(fileDetails)
         props.display(fileDetails);
     }
     // ---------------------------------------------------------------------------
