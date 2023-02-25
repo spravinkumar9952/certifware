@@ -76,7 +76,7 @@ const imageUpload = multer({
 }) 
 
 app.post("/upload", imageUpload.single('certificate'), async (req, res)=>{
-    console.log(req.body);
+    console.log(req);
     const certificateObj = {
         img: {
             data: fs.readFileSync(path.join(__dirname +"/images/"+req.file.filename)),
