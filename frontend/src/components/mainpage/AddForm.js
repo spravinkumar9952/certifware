@@ -30,8 +30,12 @@ const AddForm = (props) => {
         event.preventDefault();
         const data = new FormData();
         data.append('certificate', image);
-        // data.append('certificate_domain',domain);   
-        axios.post('http://localhost:8080/upload',data);
+
+        axios.post('http://localhost:8080/upload', data);
+        
+        // const fileDetails = {data}
+        // console.log(fileDetails)
+        // props.display(fileDetails);
     }
     // ---------------------------------------------------------------------------
 
