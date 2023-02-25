@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import "./Popup.css";
 import { Form } from "react-router-dom";
-import FormData from 'react-form-data';
+
 
 const AddForm = (props) => {
     const[name,setName] = useState("");
@@ -29,18 +29,16 @@ const AddForm = (props) => {
         handleFile();
         event.preventDefault();
         const data = new FormData();
-        data.append('certificate', image);
 
-        axios.post('http://localhost:8080/upload', data);
-        
-        // const fileDetails = {data}
-        // console.log(fileDetails)
-        // props.display(fileDetails);
+        data.append('certificate_name', name);
+        data.append('certificate', image);
+        data.append('certificate_domain', domain);
+        data.append('certificate.cred_id',id);
+        data.append('certificate_cred_url', url);
+
+        props.display(data);
     }
     // ---------------------------------------------------------------------------
-
-
-
     return (
         <>
             <div>
@@ -72,9 +70,9 @@ const AddForm = (props) => {
                                 <input type="text" name='certificate_cred_id' onChange={(event) => setID(event.target.value)}/>
                             </div>
                             <div className="field">
-                                <label>Credential ID</label>
+                                <label>Credential URL</label>
                                 <br></br>
-                                <input type="text" name='certificate_cred_id#2' onChange={(event) => setURL(event.target.value)}/>
+                                <input type="text" name='certificate_cred_url' onChange={(event) => setURL(event.target.value)}/>
                             </div>
                             <div className="add">
                                 <input className="close-popup" type="submit" value="Add"/>

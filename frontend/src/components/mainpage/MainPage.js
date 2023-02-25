@@ -4,6 +4,10 @@ import { useState} from "react";
 import AddForm from "./AddForm";
 import View from "./View";
 
+const fileUrl='http://localhost:8080/upload';
+
+
+
 // import "./Scroll.css"
 
 const MainPage = (props) => {
@@ -13,12 +17,13 @@ const MainPage = (props) => {
     
     // ---------------------Called by AddForm Component(Parent) to set the details---------------
 
-    // async function upload(fileDetails) {
-    //     console.log(fileDetails==null?"empty":"not null");
-    //     console.log("in upload");
-    //     console.log(fileDetails.certificate);
-        
-    // }
+    const upload = (fileDetails) => {
+        axios.post(fileUrl,fileDetails)
+        .then((res) => {
+        }).catch((err) => {
+            console.log(err);
+        })
+    }
 
     // axios.get(fileUrl).then((response) => {
     // }).catch(err) {
@@ -53,7 +58,7 @@ const MainPage = (props) => {
             <div className="scr-bg">
                 <div className="scr-div">
                     <div className="scr-obj">
-                        <AddForm/>
+                        <AddForm display={upload}/>
                         <div>
                             {data.map((details) => {
                                 return <li style={{display:"inline-block",margin:"10px"}}> 
