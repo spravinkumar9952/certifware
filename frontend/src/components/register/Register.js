@@ -12,7 +12,6 @@ const Register = (props) => {
 
     // bind the user details and send to Main component
     const submit = (event) => {
-        
         console.log("Submitted at registration");
         event.preventDefault(); 
         const userDetails = {email,username,password,confirmPassword};
