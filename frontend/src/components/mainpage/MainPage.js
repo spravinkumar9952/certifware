@@ -1,14 +1,34 @@
 import React from "react";
-import { useState } from "react";
+import { useState,axios} from "react";
 import AddForm from "./AddForm";
 import View from "./View";
+
 // import "./Scroll.css"
 
 const MainPage = (props) => {
     const[data,setData] = useState([]);
     const[groupname,setGroupName] = useState(props.name);
 
+    const fileUrl="http://localhost:8080/upload";
+
+
+
+
     // ---------------------Called by AddForm Component(Parent) to set the details---------------
+
+    const upload = (fileDetails) => {
+         axios.post(fileUrl,fileDetails)
+         .then((res)=>{
+         }).catch((err) => {
+            console.log(err);
+         })
+    }
+
+    // axios.get(fileUrl).then((response) => {
+    // }).catch(err) {
+    //    console.log("Error in adding form");
+    // }
+
     const display = (fileDetails) => {
         console.log("MainPage");
         const certificate_image = fileDetails.image;
@@ -37,7 +57,7 @@ const MainPage = (props) => {
             <div className="scr-bg">
                 <div className="scr-div">
                     <div className="scr-obj">
-                        <AddForm display={display}/>
+                        <AddForm display={upload}/>
                         <div>
                             {data.map((details) => {
                                 return <li style={{display:"inline-block",margin:"10px"}}> 
