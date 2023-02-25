@@ -10,20 +10,15 @@ const MainPage = (props) => {
     const[data,setData] = useState([]);
     const[groupname,setGroupName] = useState(props.name);
 
-    const fileUrl="http://localhost:8080/upload";
-
-
-
-
+    
     // ---------------------Called by AddForm Component(Parent) to set the details---------------
 
-    const upload = (fileDetails) => {
-         axios.post(fileUrl,fileDetails)
-         .then((res)=>{
-         }).catch((err) => {
-            console.log(err);
-         })
-    }
+    // async function upload(fileDetails) {
+    //     console.log(fileDetails==null?"empty":"not null");
+    //     console.log("in upload");
+    //     console.log(fileDetails.certificate);
+        
+    // }
 
     // axios.get(fileUrl).then((response) => {
     // }).catch(err) {
@@ -58,7 +53,7 @@ const MainPage = (props) => {
             <div className="scr-bg">
                 <div className="scr-div">
                     <div className="scr-obj">
-                        <AddForm display={upload}/>
+                        <AddForm/>
                         <div>
                             {data.map((details) => {
                                 return <li style={{display:"inline-block",margin:"10px"}}> 

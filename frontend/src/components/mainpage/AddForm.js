@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import "./Popup.css";
 import { Form } from "react-router-dom";
+import FormData from 'react-form-data';
 
 const AddForm = (props) => {
     const[name,setName] = useState("");
@@ -9,6 +10,9 @@ const AddForm = (props) => {
     const[image,setImage] = useState(null);
     const[id,setID] = useState(null);
     const[url,setURL] = useState(null);
+
+    const fileUrl='http://localhost:8080/upload';
+
 
     const[state,setState] = useState(false)
     const[dataFromServer,setDataFromServer] = useState(null)
@@ -21,14 +25,13 @@ const AddForm = (props) => {
 
 
     // --------------------Child to Parent Props Passing--------------------------
-    const bind = (event) => {
+    function bind(event) {
         handleFile();
         event.preventDefault();
         const data = new FormData();
         data.append('certificate', image);
-        const fileDetails = {name,domain,image,id,data}
-        console.log(fileDetails)
-        props.display(fileDetails);
+        // data.append('certificate_domain',domain);   
+        axios.post('http://localhost:8080/upload',data);
     }
     // ---------------------------------------------------------------------------
 
@@ -47,12 +50,12 @@ const AddForm = (props) => {
                             <div className="field">
                                 <label>Certificate Name</label>
                                 <br></br>
-                                <input type="text" onChange={(event) => setName(event.target.value)}/>
+                                <input type="text" name='certificate_name' onChange={(event) => setName(event.target.value)}/>
                             </div>
                             <div className="field">
                                 <label>Domain</label>
                                 <br></br>
-                                <input type="text" onChange={(event) => setDomain(event.target.value)}/>
+                                <input type="text" name='certificate_domain' onChange={(event) => setDomain(event.target.value)}/>
                             </div>
                             <div className="field">
                                 <label>Upload Certificate</label>
@@ -62,12 +65,12 @@ const AddForm = (props) => {
                             <div className="field">
                                 <label>Credential ID</label>
                                 <br></br>
-                                <input type="text" onChange={(event) => setID(event.target.value)}/>
+                                <input type="text" name='certificate_cred_id' onChange={(event) => setID(event.target.value)}/>
                             </div>
                             <div className="field">
                                 <label>Credential ID</label>
                                 <br></br>
-                                <input type="text" onChange={(event) => setURL(event.target.value)}/>
+                                <input type="text" name='certificate_cred_id#2' onChange={(event) => setURL(event.target.value)}/>
                             </div>
                             <div className="add">
                                 <input className="close-popup" type="submit" value="Add"/>
