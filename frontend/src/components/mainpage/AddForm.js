@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "./Popup.css";
+import { Form } from "react-router-dom";
 
 const AddForm = (props) => {
     const[name,setName] = useState("");
@@ -8,8 +9,6 @@ const AddForm = (props) => {
     const[image,setImage] = useState(null);
     const[id,setID] = useState(null);
     const[url,setURL] = useState(null);
-
-    const fileUrl="http://localhost:8080/filedetails";
 
     const[state,setState] = useState(false)
     const[dataFromServer,setDataFromServer] = useState(null)
@@ -25,14 +24,10 @@ const AddForm = (props) => {
     const bind = (event) => {
         handleFile();
         event.preventDefault();
-        const fileDetails = {name,domain,image,id,url};
         console.log(fileDetails)
-        // axios.post(fileUrl,fileDetails);
-        // axios.get(fileUrl).then((response) => {
-        //     setDataFromServer(response);
-        // }).catch(err) {
-        //    console.log("Error in adding form");
-        // }
+        const data = new FormData();
+        data.append('certificate', image);
+        const fileDetails = {data}
         props.display(fileDetails);
     }
     // ---------------------------------------------------------------------------
@@ -62,7 +57,7 @@ const AddForm = (props) => {
                             <div className="field">
                                 <label>Upload Certificate</label>
                                 <br></br>
-                                <input type="file" onChange={(event) => setImage(event.target.files[0])}/>
+                                <input type="file" name="certificate" onChange={(event) => setImage(event.target.files[0])}/>
                             </div>
                             <div className="field">
                                 <label>Credential ID</label>
