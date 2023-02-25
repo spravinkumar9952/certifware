@@ -26,9 +26,12 @@ const AddForm = (props) => {
         event.preventDefault();
         const data = new FormData();
         data.append('certificate', image);
-        const fileDetails = {name,domain,image,id,data}
-        console.log(fileDetails)
-        props.display(fileDetails);
+
+        axios.post('http://localhost:8080/upload', data);
+        
+        // const fileDetails = {data}
+        // console.log(fileDetails)
+        // props.display(fileDetails);
     }
     // ---------------------------------------------------------------------------
 
