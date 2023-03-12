@@ -101,12 +101,13 @@ app.post("/upload", checkAuth, imageUpload.single('certificate'), async (req, re
 })
 
 app.get("/display", (req, res)=>{
+    console.log("Display called");
     Certificate.find({}, (err, items) =>{
         if(err){
             console.log(err);
             res.status(500).send("Oops");
         }else{
-            res.render("display", {items: items});
+            res.send(items);
         }
     })
 })

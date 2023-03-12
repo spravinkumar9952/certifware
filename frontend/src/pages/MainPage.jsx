@@ -4,16 +4,12 @@ import { useState } from "react";
 import AddForm from "../components/AddForm";
 import View from "../components/View";
 
-// import "./Scroll.css"
 
 const MainPage = (props) => {
     const [data, setData] = useState([]);
     const [groupname, setGroupName] = useState(props.name);
 
     const fileUrl = "http://localhost:8080/upload";
-
-
-
 
     // ---------------------Called by AddForm Component(Parent) to set the details---------------
 
@@ -70,3 +66,5 @@ const MainPage = (props) => {
         </>
     )
 }
+
+export default MainPage;

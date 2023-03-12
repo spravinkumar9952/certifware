@@ -22,6 +22,8 @@ $btn-color : rgb(155, 184, 155);
         background-color: $btn-color;
         cursor: pointer;
         border-radius: 0.2rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
     }
     .auth{
         background-color: $bg-color;
@@ -56,6 +58,21 @@ $btn-color : rgb(155, 184, 155);
         
     }
 
+    .danger-btn{
+        background-color: red;
+        color: white;
+        border: 0;
+        cursor: pointer;
+        padding: 0.5rem;
+        
+
+        &:hover{
+            background-color: white;
+            border: 1px solid red;
+            color: black;
+        }
+    }
+
     .nav-bar{
         display: flex;
         flex-direction: row;
@@ -67,20 +84,7 @@ $btn-color : rgb(155, 184, 155);
 
         background-color: white;
 
-        button{
-            background-color: red;
-            color: white;
-            border: 0;
-            cursor: pointer;
-            padding: 0.5rem;
-            
-
-            &:hover{
-                background-color: white;
-                border: 1px solid red;
-                color: black;
-            }
-        }
+        
     }
 
     .container{
@@ -88,5 +92,12 @@ $btn-color : rgb(155, 184, 155);
         flex-direction: column;
         justify-content: center;
         align-items: center;
+
+        .ctf-container{
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+        }
     }
 }

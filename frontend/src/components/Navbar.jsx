@@ -13,7 +13,7 @@ const Navbar = () => {
             </div>
             
             <div className="nav-links">
-            <button className="logout-btn" onClick={() => navigate("/login", { replace: true })}>Logout</button>
+                <button className="danger-btn" onClick={() => navigate("/login", { replace: true })}>Logout</button>
             </div>
         </div>
     )

@@ -6,38 +6,32 @@ import { useState } from "react";
 
 
 const Container = () => {
-    const[groups,setGroups] = useState([]);
+    const [groups, setGroups] = useState([]);
 
     // ---------------------Called by AddGroup Component(Parent) to set the data-----------------
     const show = (data) => {
         const obj = {
-            id: groups.length==0 ? 1 : groups[groups.length-1].id + 1,
+            id: groups.length == 0 ? 1 : groups[groups.length - 1].id + 1,
             name: data
         }
         console.log("success");
-        setGroups([...groups,obj]);
+        setGroups([...groups, obj]);
     }
     // ------------------------------------------------------------------------------------------
 
     return (
-        <div>
-            <div>   
-                <ul>
-                    <li style={{listStyleType:"none"}}>
-                        <AddGroup show={show}/>
-                        <div>
-                            {groups.map((groupobject) => {
-                                return <div key={groupobject.id}>
-                                    <ShowGroup name={groupobject.name}/>
-                                    <MainPage name={groupobject.name}/>
-                                </div>
-                            })}
+        <div className="container">
+            <AddGroup show={show} />
+            <div className="ctf-container">
+                
+                <div>
+                    {groups.map((groupobject) => {
+                        return <div key={groupobject.id}>
+                            <ShowGroup name={groupobject.name} />
+                            <MainPage name={groupobject.name} />
                         </div>
-                    </li>
-                    {/* <li style={{listStyleType:"none"}}>
-                        
-                    </li> */}
-                </ul>
+                    })}
+                </div>
             </div>
         </div>
     )
