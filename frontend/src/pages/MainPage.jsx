@@ -14,13 +14,13 @@ const MainPage = (props) => {
     // ---------------------Called by AddForm Component(Parent) to set the details---------------
 
     const upload = (fileDetails) => {
-        axios.post(fileUrl, fileDetails)
-            .then((res) => {
-            }).catch((err) => {
-                console.log(err);
-            })
+        axios.post(fileUrl, fileDetails,{withCredentials:true})
+        .then((res) => {
+        }).catch((err) => {
+            console.log(err);
+        })
     }
-
+    
     // axios.get(fileUrl).then((response) => {
     // }).catch(err) {
     //    console.log("Error in adding form");
@@ -52,7 +52,6 @@ const MainPage = (props) => {
     return (
         <>
             <div className="scr-bg">
-
                 <AddForm display={upload} />
                 <div>
                     {data.map((details) => {

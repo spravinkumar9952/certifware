@@ -29,13 +29,11 @@ const AddForm = (props) => {
         handleFile();
         event.preventDefault();
         const data = new FormData();
-
         data.append('certificate_name', name);
         data.append('certificate', image);
         data.append('certificate_domain', domain);
         data.append('certificate.cred_id', id);
         data.append('certificate_cred_url', url);
-
         props.display(data);
     }
     // ---------------------------------------------------------------------------
