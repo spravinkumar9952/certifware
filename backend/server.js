@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 dotenv.config();
-
 import Express  from "express";
+import jwt from "jsonwebtoken";
 import bodyParser from "body-parser";
 import session from "express-session";
 import passport from "passport";
@@ -107,6 +107,20 @@ app.post("/upload", checkAuth, imageUpload.single('certificate'), async (req, re
 })
 
 app.get("/display", (req, res)=>{
+    
+    const authHeader = req.headers.authorization;
+    const token = authHeader && authHeader.split(' ')[1];
+    console.log(token)
+    if (!token) {
+        console.log(token);
+        return res.status(401).send('Unauthorized...');
+    }
+    try {
+        const decoded = jwt.verify(token, 'mysecretkey');
+    } catch (error) {
+        console.log(error);
+        return res.status(401).send('Unauthorized!!!');
+    }
     console.log("Display called");
     Certificate.find({}, (err, items) =>{
         if(err){
@@ -155,7 +169,7 @@ app.get('/logout', function(req, res, next) {
         }
       res.redirect('/');
     });
-  });
+});
   
 
 app.post("/register", function(req, res){
@@ -176,12 +190,21 @@ app.post("/register", function(req, res){
     })
 });
 
+const username="",password="";
 app.post("/login", function(req, res){
     const user = new User({
         username : req.body.username,
         password : req.body.password
     });
     console.log(user);
+    const payload = {
+        pName : user.name
+    }
+    const secretKey = 'mysecretkey';
+    const options = {
+        expiresIn: '1h'
+    }
+    const token = jwt.sign(payload, secretKey, options);
     req.login(user, function(err){
         if (err) {
             console.log(err);
@@ -191,7 +214,7 @@ app.post("/login", function(req, res){
         else {
             passport.authenticate("local")(req, res, function(){
                 // res.redirect("/secrets");
-                res.send({response : "success"});
+                res.send({token});
             });
         }
     })

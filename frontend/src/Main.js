@@ -5,6 +5,7 @@ import Login from "./pages/Login";
 import UserPage from "./pages/UserPage";
 import { useState } from "react";
 import {BrowserRouter,Routes,Route,Link} from 'react-router-dom';
+import  Cookies  from "js-cookie";
 
 
 import "./style.scss"
@@ -19,6 +20,7 @@ const Main=()=> {
     // states
     const[pathFromReg, setPathfromReg] = useState(false)
     const[pathFromLogin, setPathfromLogin] = useState("")
+    let token = "";
 
     
     // ---------------------------send registered details of user to server--------
@@ -30,7 +32,7 @@ const Main=()=> {
             if(response.data.response==="success") {
                 setPathfromReg("/login");
                 window.location.href="/login";
-            } else {
+            } else { 
                 alert("Username already exists");
                 window.location.href="/";
             }
@@ -48,13 +50,15 @@ const Main=()=> {
         console.log(userDetails);
         axios.post(loginUrl,userDetails)
         .then((response) => {
-            if(response.data.response==="success") {
-                setPathfromLogin("/UserPage")
-                window.location.href="/userpage"
-            } else {
+            if(response.data.response==="fail") {
                 setPathfromLogin("/login")
                 alert("Invalid username or password");
                 window.location.href="/login"
+            } else {
+                Cookies.set('token', response.data.token, { expires: 7 });
+                console.log(Cookies.get('token'));
+                setPathfromLogin("/UserPage")
+                window.location.href="/userpage";
             }
             console.log(response);
         }).catch((err) => {

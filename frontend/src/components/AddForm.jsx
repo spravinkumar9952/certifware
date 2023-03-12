@@ -23,7 +23,6 @@ const AddForm = (props) => {
     function bind(event) {
         event.preventDefault();
         const data = new FormData();
-
         data.append('certificate_name', name);
         data.append('certificate', image);
         data.append('certificate_domain', domain);
