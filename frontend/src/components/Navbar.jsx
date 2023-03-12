@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
+import Logo from "../images/logo.png"
 
 
 const Navbar = () => {
@@ -9,7 +10,7 @@ const Navbar = () => {
         <div className="nav-bar">
 
             <div className="logo">
-                <h1>Certifware</h1>
+                <img className = "logo-img"src={Logo} alt="" />
             </div>
             
             <div className="nav-links">
