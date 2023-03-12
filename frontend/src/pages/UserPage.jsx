@@ -2,8 +2,9 @@ import axios from "axios";
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { Link,useNavigate } from "react-router-dom";
-import Container from "../components/Container";
+import AddForm from "../components/AddForm";
 import Navbar from "../components/Navbar";
+import swal from 'sweetalert';
 import Cookies from "js-cookie";
 
 
@@ -14,6 +15,8 @@ const UserPage = () => {
     const [img, setImg] = useState([]);
     const token = Cookies.get('token');
     console.log("USERPAGE "+ token);
+    
+
     useEffect(() => {
         axios.get(dispUrl,{
             headers: { Authorization: `Bearer ${token}`}
@@ -31,17 +34,28 @@ const UserPage = () => {
             console.log("Disp Error", e);
             navigate("/login", { replace: true })
         })
+
+        
     }, []);
 
     return (
         <div className="container">
+            
             <Navbar/>
-            {
-                img.map((obj) => {
-                    return <img src={`data:image/png;base64,${obj}`} alt=""/>
-                 })
-            }
-            <Container/>
+
+            
+                
+            
+            
+            <div className="cert-imgs">
+                {
+                    img.map((obj) => {
+                        return <img className="certificate" src={`data:image/png;base64,${obj}`} alt=""/>
+                    })
+                }
+            </div>
+            
+            <AddForm/>
         </div>
     )
 }
