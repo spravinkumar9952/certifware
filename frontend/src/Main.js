@@ -1,10 +1,13 @@
 import React from "react";
 import axios from "axios";
-import Register from "./components/register/Register";
-import Login from "./components/login/Login";
-import UserPage from "./components/userPage/UserPage";
+import Register from "./pages/Register";
+import Login from "./pages/Login";
+import UserPage from "./pages/UserPage";
 import { useState } from "react";
 import {BrowserRouter,Routes,Route,Link} from 'react-router-dom';
+
+
+import "./style.scss"
 
 // URLs
 const regUrl="http://localhost:8080/register";
@@ -61,7 +64,7 @@ const Main=()=> {
     // ---------------------------------------------------------------------------
 
     return (
-        <div>
+        <div className="main-div">
             <BrowserRouter>
                 <Routes>
                     <Route path="/" element={<Register onSubmit={sendRegUserDetails}/>}/>

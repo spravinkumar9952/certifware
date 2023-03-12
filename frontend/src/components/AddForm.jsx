@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import "./Popup.css";
+
 import { Form } from "react-router-dom";
 
 const AddForm = (props) => {

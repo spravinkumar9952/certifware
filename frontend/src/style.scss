@@ -1,0 +1,92 @@
+
+$bg-color : rgb(168, 217, 168);
+$btn-color : rgb(155, 184, 155);
+
+
+*{
+    margin: 0;
+}
+
+
+.main-div{
+    background-color: $bg-color;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    
+    .link{
+        text-decoration: none;
+    }
+    .button{
+        margin-top: 1rem;
+        background-color: $btn-color;
+        cursor: pointer;
+        border-radius: 0.2rem;
+    }
+    .auth{
+        background-color: $bg-color;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    form{
+        border-radius: 0.2rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        padding: 1rem;
+        background-color: white;
+        width: 25rem;
+        height: 25rem;
+
+
+        input{
+            padding: 0.5rem;
+            width: 10rem;
+            border: none;
+           
+            border-bottom: 1px solid black;
+        }
+
+        
+    }
+
+    .nav-bar{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        margin-bottom: 1rem;
+        padding: 1rem;
+        width: 100vw;
+
+        background-color: white;
+
+        button{
+            background-color: red;
+            color: white;
+            border: 0;
+            cursor: pointer;
+            padding: 0.5rem;
+            
+
+            &:hover{
+                background-color: white;
+                border: 1px solid red;
+                color: black;
+            }
+        }
+    }
+
+    .container{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+}

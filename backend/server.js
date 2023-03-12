@@ -41,13 +41,18 @@ app.set('view engine', 'ejs');
 passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
-// passport.serializeUser(function(user, done) {
-//     done(null, user);
-//   });
-  
-//   passport.deserializeUser(function(user, done) {
-//     done(null, user);
-//   });
+
+
+const checkAuth = (req, res, next) => {
+    //if (req.session.isAuthenticated) {
+      // user is authenticated, so allow them to proceed
+      next();
+    // } else {
+    //   // user is not authenticated, so redirect them to the login page
+    //   console.log("Not");
+    //   res.send("You are not auth");
+    // }
+  };
 
 // -------------------------------------------------------------------------------
 //   Certificate Upload Section
@@ -75,8 +80,8 @@ const imageUpload = multer({
     }
 }) 
 
-app.post("/upload", imageUpload.single('certificate'), async (req, res)=>{
-    console.log(req.body);
+app.post("/upload", checkAuth, imageUpload.single('certificate'), async (req, res)=>{
+    console.log(req.username);
     const certificateObj = {
         img: {
             data: fs.readFileSync(path.join(__dirname +"/images/"+req.file.filename)),
@@ -109,9 +114,6 @@ app.get("/display", (req, res)=>{
 app.get("/upload", (req, res)=>{
     res.render("upload");
 })
-// -----------------------------------------------------------------------------
-
-
 
 app.get("/", function(req, res){
     res.render("home");

@@ -1,7 +1,7 @@
 import React from "react";
-import AddGroup from "./containercomponents/addgroup/AddGroup";
-import ShowGroup from "./containercomponents/showgroups/ShowGroup"
-import MainPage from "../../../mainpage/MainPage";
+import AddGroup from "./AddGroup";
+import ShowGroup from "./ShowGroup"
+import MainPage from "../pages/MainPage";
 import { useState } from "react";
 
 

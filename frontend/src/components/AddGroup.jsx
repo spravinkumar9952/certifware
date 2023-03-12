@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import MainPage from "../../../../../mainpage/MainPage";
-import "./AddGroup.css"
+import MainPage from "../pages/MainPage";
+
 import axios from "axios";
 
 const AddGroup = (props) => {
