@@ -37,7 +37,6 @@ app.use(passport.initialize());
 
 app.set('view engine', 'ejs');
 
-
 passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
@@ -84,7 +83,7 @@ app.post("/upload", imageUpload.single('certificate'), async (req, res)=>{
         }
     }
 
-    Certificate.create(certificateObj, (err, item) =>{
+    Certificate.create(certificateObj, (err) =>{
         if(err){
             console.log(err);
         }else{
@@ -109,6 +108,7 @@ app.get("/display", (req, res)=>{
 app.get("/upload", (req, res)=>{
     res.render("upload");
 })
+
 // -----------------------------------------------------------------------------
 
 

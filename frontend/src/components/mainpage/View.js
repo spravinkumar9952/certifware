@@ -4,6 +4,7 @@ const View = (props) => {
     return (
         <div>
             <div>
+            {console.log(props.img)};
             <img src={URL.createObjectURL(props.img)} height={190} width={350}/>
                 <ul>
                     <li style={{display:"inline-block"}}><h4>{props.name}</h4></li>

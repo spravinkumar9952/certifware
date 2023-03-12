@@ -9,7 +9,5 @@ const User = new mongoose.model("User", userSchema);
 
 const Certificate = new mongoose.model("Certificate", certificateSchema);
 
-
-
 export {User, Certificate};
 

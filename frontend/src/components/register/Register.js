@@ -41,8 +41,8 @@ const Register = (props) => {
                     </div>
                     <input type="submit" value="Register"/>
                     <h6>Already have an account</h6>
-                    <Link to="/login">
-                        <button>Login</button>
+                    <Link to="/show">
+                        <button>Show</button>
                     </Link>
                 </form>
             </div>
