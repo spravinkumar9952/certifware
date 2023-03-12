@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import MainPage from "../../../../../mainpage/MainPage";
-import "./AddGroup.css"
+import MainPage from "../pages/MainPage";
+
 import axios from "axios";
 
 const AddGroup = (props) => {
@@ -35,26 +35,21 @@ const AddGroup = (props) => {
     return (
         <>
             <div>
-                <button onClick={handleChange}>Add Group</button>
+                <button className="button" onClick={handleChange}>Add Group</button>
             </div>
             {state && (
-                    <div className="popup">
-                    <div onClick={handleChange} className="overlap"></div>
+                    
                     <div className="popup-content">
                         <form onSubmit={createGroup}>
-                            <div className="field">
-                                <label>Group Name</label>
-                                <br></br>
-                                <input type="text" onChange={(event) => setGroupName(event.target.value)}/>
-                            </div>
-                            <div className="add">
-                                <input className="close-popup" type="submit" value="Add"/>
-                                <br></br>
-                                <button onClick={handleChange}>Cancel</button>
-                            </div>
+                          
+                                <input type="text" placeholder="Group Name" onChange={(event) => setGroupName(event.target.value)}/>
+                            
+                                <input className="button" type="submit" value="Add"/>
+                                
+                                <button className="danger-btn" onClick={handleChange}>Cancel</button>
+            
                         </form>
                     </div>
-                </div>
             )}
         </>
     )
