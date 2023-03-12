@@ -37,7 +37,6 @@ app.use(passport.initialize());
 
 app.set('view engine', 'ejs');
 
-
 passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
@@ -122,6 +121,10 @@ app.get("/display", (req, res)=>{
 app.get("/upload", (req, res)=>{
     res.render("upload");
 })
+
+// -----------------------------------------------------------------------------
+
+
 
 app.get("/", function(req, res){
     res.render("home");
