@@ -3,8 +3,9 @@ import axios from "axios";
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { Link,useNavigate } from "react-router-dom";
-import Container from "../components/Container";
+import AddForm from "../components/AddForm";
 import Navbar from "../components/Navbar";
+import swal from 'sweetalert';
 
 
 // --------------------------------Main Page starts from here-------------------------------
@@ -13,6 +14,8 @@ const UserPage = () => {
     const dispUrl = "http://localhost:8080/display";
 
     const [img, setImg] = useState([]);
+
+    
 
     useEffect(() => {
         axios.get(dispUrl)
@@ -29,17 +32,28 @@ const UserPage = () => {
         }).catch((e) => {
             console.log("Disp Error", e);
         })
+
+        
     }, []);
 
     return (
         <div className="container">
+            
             <Navbar/>
-            {
-                img.map((obj) => {
-                    return <img src={`data:image/png;base64,${obj}`} alt=""/>
-                 })
-            }
-            <Container/>
+
+            
+                
+            
+            
+            <div className="cert-imgs">
+                {
+                    img.map((obj) => {
+                        return <img className="certificate" src={`data:image/png;base64,${obj}`} alt=""/>
+                    })
+                }
+            </div>
+            
+            <AddForm/>
         </div>
     )
 }

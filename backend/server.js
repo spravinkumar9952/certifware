@@ -81,19 +81,26 @@ const imageUpload = multer({
 }) 
 
 app.post("/upload", checkAuth, imageUpload.single('certificate'), async (req, res)=>{
-    console.log(req.username);
+
     const certificateObj = {
         img: {
             data: fs.readFileSync(path.join(__dirname +"/images/"+req.file.filename)),
             contentType: 'image/png'
-        }
+        },
+        userName : { data : ""},
+        certificateName : { data: req.body.certificate_name},
+        creadentialId : { data : req.body.certificate_cred_id},
+        creadentialUrl : { data : req.body.certificate_cred_url},
+        group : { data : req.body.certficate_domain}
     }
+
+    console.log(certificateObj);
 
     Certificate.create(certificateObj, (err, item) =>{
         if(err){
-            console.log(err);
+            res.send("error")
         }else{
-            res.redirect("/display");
+            res.send("success");
         }
     })
 
