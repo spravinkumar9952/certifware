@@ -10,8 +10,6 @@ const Navbar = () => {
     const navigate = useNavigate();
 
     const logoutHandler = () =>{
-        // axios.get("http://localhost:8080/logout")
-        // .then().catch()
         Cookies.remove("token");
         navigate("/login", { replace: true })
     }
@@ -24,7 +22,12 @@ const Navbar = () => {
             </div>
             
             <div className="nav-links">
-                <Link to='/profile'>
+                <div>
+                    <input placeholder="Search the user"/>
+                    <button>Search</button>
+                </div>
+                
+                <Link to='/profile' className="link">
                     Profile
                 </Link>
                 <button className="danger-btn" onClick={() => logoutHandler() }>Logout</button>

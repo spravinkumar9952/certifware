@@ -75,25 +75,29 @@ const UserPage = () => {
     return (
         <div className="container">
             <Navbar/>
-            <div className="cert-imgs">
+            <div className="certificate-container">
                 {  
                     Array.from(img.entries()).map((entry) => {
                         const [key, value] = entry
                         return (
+                            <>
+                            <h1>{key}</h1>
                             <div className="group-card">
-                                <h1>{key}</h1>
+                                
                                 {
                                     value.map((obj) => {
                                         return (
-                                            <div className="img-card">
+                                            <div className="certificate-card">
                                                 <img className="certificate" src={`data:image/png;base64,${obj.img}`} alt=""/>
-                                                <p>Name : {obj.certificateName}</p>
-                                                <p>Group : {obj.group}</p>
+                                                <p><span> Name : </span>{obj.certificateName}</p>
+                                                <p><span>Group :</span> {obj.group}</p>
+                                                <button className = "danger-btn" onClick={() => remove(obj.certificateName)}>Delete</button>
                                             </div>
                                         )  
                                     })
                                 }
                             </div>
+                            </>
                         )
                     })
                 }
