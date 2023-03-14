@@ -143,9 +143,10 @@ app.get("/display", verifyToken, (req, res)=>{
     })
 })
 
-app.delete('/delete', (req, res) => {
-    console.log("inside delete");
-    const name = req.body.certificateName;
+app.delete('/delete/:name', (req, res) => {
+    console.log("req "+req.params);
+    const name = req.params.name;
+    console.log("fdf "+name);
     Certificate.findOneAndDelete({certificateName:name}, (err,data) => {
         console.log("came to delete");
         if(err) {

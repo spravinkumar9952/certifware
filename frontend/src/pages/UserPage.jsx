@@ -19,19 +19,28 @@ const UserPage = () => {
     console.log("USERPAGE "+ token);
 
     const [isDeleted,setDeleted] = useState(false);
-    const delUrl = 'http://localhost:8080/delete';
 
-    const remove = () => {
-        console.log("removing...");
-        axios.delete(delUrl)
-        .then((response) => {
-            if(response==='success') {
-                setDeleted(true);
-            }
-        }).catch((err) => {
-            console.log(err);
-        })
-    }
+    const remove = async (name) => {
+        console.log(name);
+        try {
+          const response = await axios.delete(`http://localhost:8080/delete/${name}`);
+          console.log(response.data); // log response data
+        } catch (error) {
+          console.error(error);
+        }
+    };
+
+    // const remove = (name) => {
+    //     console.log(name);
+        // axios.delete('http://localhost:8080/delete/'+name)
+        // .then((response) => {
+        //     if(response==='success') {
+        //         setDeleted(true);
+        //     }
+        // }).catch((err) => {
+        //     console.log(err);
+        // })
+    //}
     
 
     useEffect(() => {
@@ -85,6 +94,7 @@ const UserPage = () => {
                                 <img className="certificate" src={`data:image/png;base64,${obj.img}`} alt=""/>
                                 <p>Name : {obj.certificateName}</p>
                                 <p>Group : {obj.group}</p>
+                                <button onClick={() => remove(obj.certificateName)}>Delete</button>
                             </div>
                         )  
                     })
