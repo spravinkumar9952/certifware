@@ -143,6 +143,17 @@ app.get("/display", verifyToken, (req, res)=>{
     })
 })
 
+app.delete('/delete/:name', (req, res) => {
+    const name = req.params.name;
+    Certificate.findOneAndDelete({certificateName:name}, (err,data) => {
+        if(err) {
+            res.send(err);
+        } else {
+            res.send("success");
+        }
+    })
+})
+
 
 app.get("/profile", verifyToken, (req, res) =>{
     const userName = res.locals.userName;

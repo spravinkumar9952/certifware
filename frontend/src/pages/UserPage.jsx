@@ -8,7 +8,6 @@ import swal from 'sweetalert';
 import Cookies from "js-cookie";
 import Footer from "../components/Footer";
 
-
 // --------------------------------Main Page starts from here-------------------------------
 const UserPage = () => {
     const navigate = useNavigate();
@@ -18,13 +17,30 @@ const UserPage = () => {
 
     const token = Cookies.get('token');
     console.log("USERPAGE "+ token);
+
+    const [isDeleted,setDeleted] = useState(false);
+
+    const remove = (name) => {
+        axios.delete(`http://localhost:8080/delete/${name}`)
+        .then((response) => {
+            if(response==='success') {
+                setDeleted(true);
+            }
+        }).catch((err) => {
+            console.log(err);
+        })
+    }
     
 
     useEffect(() => {
+        isDeleted || 
         axios.get(dispUrl,{
             headers: { Authorization: `Bearer ${token}`}
         })
         .then((res) =>{
+            if(isDeleted) {
+                setDeleted(false);
+            }
             let map = new Map();
 
             res.data.forEach((obj) => {
@@ -89,4 +105,4 @@ const UserPage = () => {
 }
 // -----------------------------------------------------------------------------------------
 
-export default UserPage;
+export default UserPage;
