@@ -26,64 +26,62 @@ const UserPage = () => {
         })
         .then((res) =>{
             let map = new Map();
-            
-            const baseStrArr = res.data.map((obj) => {
+
+            res.data.forEach((obj) => {
                 const arrayBuffer = obj.img.data.data;
                 const base64String = btoa(new Uint8Array(arrayBuffer).reduce(function (data, byte) {
                     return data + String.fromCharCode(byte);
                 }, ''));
-                return {
+                const certObj = {
                     img : base64String,
                     certificateName : obj.certificateName,
                     creadentialId : obj.creadentialId,
                     group : obj.group
                 }
+
+                if (map.get(certObj.group)) {
+                    map.get(certObj.group).push(certObj);
+                } else {
+                    map.set(certObj.group, [certObj]);
+                }
             })
-            if(baseStrArr.length === 0){
-                setEmpty(true);
-            }else{
-                setEmpty(false);
-            }
-            setImg(baseStrArr);
+
+            console.log(map);
+            setImg(map);
         }).catch((e) => {
-            console.log("Disp Error", e);
             navigate("/login", { replace: true })
         })
 
         
     }, []);
 
+
     return (
         <div className="container">
-            
             <Navbar/>
-
-
             <div className="cert-imgs">
-                {!empty &&    
-                    
-                    img.map((obj) => {
+                {  
+                    Array.from(img.entries()).map((entry) => {
+                        const [key, value] = entry
                         return (
-                            <div className="img-card">
-                                <img className="certificate" src={`data:image/png;base64,${obj.img}`} alt=""/>
-                                <p>Name : {obj.certificateName}</p>
-                                <p>Group : {obj.group}</p>
+                            <div className="group-card">
+                                <h1>{key}</h1>
+                                {
+                                    value.map((obj) => {
+                                        return (
+                                            <div className="img-card">
+                                                <img className="certificate" src={`data:image/png;base64,${obj.img}`} alt=""/>
+                                                <p>Name : {obj.certificateName}</p>
+                                                <p>Group : {obj.group}</p>
+                                            </div>
+                                        )  
+                                    })
+                                }
                             </div>
-                        )  
+                        )
                     })
                 }
-                {
-                    empty && 
-
-                    <div className="no-img-card">
-                        <h1>No Certificate Found</h1>
-                        
-                    </div>
-
-                   
-                }
             </div>
-            
             <AddForm/>
             <Footer/>
         </div>
