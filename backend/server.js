@@ -116,7 +116,16 @@ app.get("/display", (req, res)=>{
         return res.status(401).send('Unauthorized...');
     }
     try {
-        const decoded = jwt.verify(token, 'mysecretkey');
+        const decoded = jwt.verify(token, 'mysecretkey',(err,decoded) => {
+            if(err) {
+                console.log("ERROR IN DECODING");
+                console.log(err);
+            } else {
+                const {name} = decoded;
+                console.log(name);
+            }
+        });
+        console.log("NAME "+decoded);
     } catch (error) {
         console.log(error);
         return res.status(401).send('Unauthorized!!!');
@@ -128,6 +137,21 @@ app.get("/display", (req, res)=>{
             res.status(500).send("Oops");
         }else{
             res.send(items);
+        }
+    })
+})
+
+app.delete('/delete', (req, res) => {
+    console.log("inside delete");
+    const name = req.body.certificateName;
+    Certificate.findOneAndDelete({certificateName:name}, (err,data) => {
+        console.log("came to delete");
+        if(err) {
+            console.log("ERROR IN DELETE");
+            res.send(err);
+        } else {
+            console.log("success");
+            res.send("success");
         }
     })
 })
