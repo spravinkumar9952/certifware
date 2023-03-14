@@ -20,27 +20,16 @@ const UserPage = () => {
 
     const [isDeleted,setDeleted] = useState(false);
 
-    const remove = async (name) => {
-        console.log(name);
-        try {
-          const response = await axios.delete(`http://localhost:8080/delete/${name}`);
-          console.log(response.data); // log response data
-        } catch (error) {
-          console.error(error);
-        }
-    };
-
-    // const remove = (name) => {
-    //     console.log(name);
-        // axios.delete('http://localhost:8080/delete/'+name)
-        // .then((response) => {
-        //     if(response==='success') {
-        //         setDeleted(true);
-        //     }
-        // }).catch((err) => {
-        //     console.log(err);
-        // })
-    //}
+    const remove = (name) => {
+        axios.delete(`http://localhost:8080/delete/${name}`)
+        .then((response) => {
+            if(response==='success') {
+                setDeleted(true);
+            }
+        }).catch((err) => {
+            console.log(err);
+        })
+    }
     
 
     useEffect(() => {
