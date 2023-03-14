@@ -6,6 +6,7 @@ $btn-color : rgb(155, 184, 155);
 
 *{
     margin: 0;
+    overflow-x: hidden;
 }
 
 
@@ -17,6 +18,10 @@ $btn-color : rgb(155, 184, 155);
     
     .link{
         text-decoration: none;
+    }
+    .logo-img{
+        width: 40%;
+        height: 40%;
     }
     .button{
         margin-top: 1rem;
@@ -84,6 +89,7 @@ $btn-color : rgb(155, 184, 155);
         margin-bottom: 1rem;
         padding: 1rem;
         width: 100vw;
+        clear: both;
 
         background-color: $nav-color;
 
@@ -97,6 +103,7 @@ $btn-color : rgb(155, 184, 155);
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        // height: 100%;
 
         .ctf-container{
             display: flex;
@@ -113,6 +120,18 @@ $btn-color : rgb(155, 184, 155);
         align-items: center;
         justify-content: space-around;
         gap: 1rem;
+
+        .img-card{
+            width: 30%;
+        }
+        .no-img-card{
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
     }
 
     .certificate{
@@ -120,8 +139,36 @@ $btn-color : rgb(155, 184, 155);
     }
 
     .add-cert{
+
         form{
+            
             margin: 1rem;
+            background-color: $nav-color;
+            width: 40rem;
+            height: 40rem;
+            input{
+                padding: 1rem;
+                border-radius: 0.2rem;
+                width: 30rem;
+            }
+
+            .file-input{
+                border: 0;
+                padding: 2rem;
+            }
         }
+    }
+
+
+    .footer{
+        background-color: $nav-color;
+        width: 100vw;
+        height: 10rem;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
     }
 }

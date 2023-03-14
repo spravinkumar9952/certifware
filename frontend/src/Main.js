@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
+import Profile from "./pages/Profile";
 import UserPage from "./pages/UserPage";
 import { useState } from "react";
 import {BrowserRouter,Routes,Route,Link} from 'react-router-dom';
@@ -74,6 +75,7 @@ const Main=()=> {
                     <Route path="/" element={<Register onSubmit={sendRegUserDetails}/>}/>
                     <Route path="/login" element={<Login onSubmit={sendLoginUserDetails}/>}/>
                     <Route path="/userpage" element={<UserPage/>}/>
+                    <Route path="/profile" element={<Profile/>}/>
                 </Routes>
             </BrowserRouter> 
         </div>

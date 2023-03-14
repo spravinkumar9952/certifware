@@ -1,21 +1,15 @@
 import mongoose from "mongoose";
 
 const certificateSchema = new mongoose.Schema({
-    userName:{
-        data : String
-    },
-    certificateName:{
-        data : String
-    },
-    creadentialId:{
-        data : String
-    },
-    creadentialUrl: {
-        data : String
-    },
-    group: {
-        data : String
-    },
+    userName: String,
+    certificateName: String,
+
+    creadentialId: String,
+
+    creadentialUrl: String,
+
+    group:  String,
+
     img:{
         data: Buffer,
         contentType: String

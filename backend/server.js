@@ -56,6 +56,27 @@ const checkAuth = (req, res, next) => {
 // -------------------------------------------------------------------------------
 //   Certificate Upload Section
 // ------------------------------------------------------------------------------
+const verifyToken = (req, res, next) => {
+    const authHeader = req.headers.authorization;
+    const token = authHeader && authHeader.split(' ')[1];
+    let decoded = "";
+
+    console.log(authHeader);
+
+    if (!token) {   
+        return res.status(401).send('Unauthorized...');
+    }
+
+    try {
+        decoded = jwt.verify(token, 'mysecretkey');
+    } catch (error) {
+        return res.status(401).send('Unauthorized!!!');
+    }
+
+    res.locals.userName = decoded.pName;
+
+    next();
+}
 const imageStorage = multer.diskStorage({
     // Destination to store image     
     destination: 'images', 
@@ -79,18 +100,19 @@ const imageUpload = multer({
     }
 }) 
 
-app.post("/upload", checkAuth, imageUpload.single('certificate'), async (req, res)=>{
+app.post("/upload", verifyToken, imageUpload.single('certificate'), async (req, res)=>{
+    const userName = res.locals.userName;
 
     const certificateObj = {
         img: {
             data: fs.readFileSync(path.join(__dirname +"/images/"+req.file.filename)),
             contentType: 'image/png'
         },
-        userName : { data : ""},
-        certificateName : { data: req.body.certificate_name},
-        creadentialId : { data : req.body.certificate_cred_id},
-        creadentialUrl : { data : req.body.certificate_cred_url},
-        group : { data : req.body.certficate_domain}
+        userName : userName,
+        certificateName : req.body.certificate_name,
+        creadentialId : req.body.certificate_cred_id,
+        creadentialUrl : req.body.certificate_cred_url,
+        group : req.body.certificate_domain
     }
 
     console.log(certificateObj);
@@ -106,34 +128,14 @@ app.post("/upload", checkAuth, imageUpload.single('certificate'), async (req, re
     await unlinkAsync(req.file.path)
 })
 
-app.get("/display", (req, res)=>{
-    
-    const authHeader = req.headers.authorization;
-    const token = authHeader && authHeader.split(' ')[1];
-    console.log(token)
-    if (!token) {
-        console.log(token);
-        return res.status(401).send('Unauthorized...');
-    }
-    try {
-        const decoded = jwt.verify(token, 'mysecretkey',(err,decoded) => {
-            if(err) {
-                console.log("ERROR IN DECODING");
-                console.log(err);
-            } else {
-                const {name} = decoded;
-                console.log(name);
-            }
-        });
-        console.log("NAME "+decoded);
-    } catch (error) {
-        console.log(error);
-        return res.status(401).send('Unauthorized!!!');
-    }
-    console.log("Display called");
-    Certificate.find({}, (err, items) =>{
+
+
+app.get("/display", verifyToken, (req, res)=>{
+
+    const userName = res.locals.userName;
+
+    Certificate.find({userName : userName}, (err, items) =>{
         if(err){
-            console.log(err);
             res.status(500).send("Oops");
         }else{
             res.send(items);
@@ -155,6 +157,26 @@ app.delete('/delete', (req, res) => {
         }
     })
 })
+
+
+app.get("/profile", verifyToken, (req, res) =>{
+    const userName = res.locals.userName;
+    
+
+    let noOfCertificates = 10;
+
+    Certificate.find({userName : userName}, (err, items) =>{
+        if(err){
+            res.status(500).send("Oops");
+        }else{
+            const len = items.length
+            res.send({
+                length : len,
+                name : userName
+            });
+        }
+    })
+});
 
 app.get("/upload", (req, res)=>{
     res.render("upload");
@@ -202,19 +224,16 @@ app.post("/register", function(req, res){
         if (err) {
             console.log(err);
             res.send({response: "fail"})
-            // res.redirect("/register");
         }
         else {
             passport.authenticate("local")(req, res, function(){
-                // res.redirect("/secrets");
-                console.log("Hello");
                 res.send({response : "success"})
             });
         }
     })
 });
 
-const username="",password="";
+
 app.post("/login", function(req, res){
     const user = new User({
         username : req.body.username,
@@ -222,34 +241,28 @@ app.post("/login", function(req, res){
     });
     console.log(user);
     const payload = {
-        pName : user.name
+        pName : user.username
     }
     const secretKey = 'mysecretkey';
     const options = {
         expiresIn: '1h'
     }
     const token = jwt.sign(payload, secretKey, options);
+    console.log(token);
+
     req.login(user, function(err){
         if (err) {
             console.log(err);
-            // res.redirect("/login");
             res.send({response : "fail"});
         }
         else {
             passport.authenticate("local")(req, res, function(){
-                // res.redirect("/secrets");
                 res.send({token});
             });
         }
     })
 });
 
-
-
-// Home page
-app.get('/', (req, res)=>{
-    res.send("Node JS Home Page!");
-});
 
 
 // Server listening port 

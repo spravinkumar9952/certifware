@@ -19,9 +19,9 @@ export const Login = (props) => {
                 <form onSubmit={submit}>
                     
                     <h1>Login</h1>
-                        <input type="text" placeholder="Username" onChange={(event) => setUserName(event.target.value)}/>
+                        <input type="text" required placeholder="Username" onChange={(event) => setUserName(event.target.value)}/>
                     
-                        <input type="password" placeholder="Password" onChange={(event) => setPassword(event.target.value)}/>
+                        <input type="password"required placeholder="Password" onChange={(event) => setPassword(event.target.value)}/>
                     
                         <input type="submit" value="Login" className="button"/>
 

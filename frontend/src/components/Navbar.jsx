@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+import Logo from "../images/logo.png"
 import axios from "axios";
 
 import Cookies from "js-cookie";
@@ -19,10 +20,13 @@ const Navbar = () => {
         <div className="nav-bar">
 
             <div className="logo">
-                <h1>Certifware</h1>
+                <img className = "logo-img"src={Logo} alt="" />
             </div>
             
             <div className="nav-links">
+                <Link to='/profile'>
+                    Profile
+                </Link>
                 <button className="danger-btn" onClick={() => logoutHandler() }>Logout</button>
             </div>
         </div>
