@@ -24,16 +24,16 @@ const Register = (props) => {
             <form onSubmit={submit}>
                 <h1>Register</h1>
 
-                <input type="email" placeholder="Email" onChange={(event) => setEmail(event.target.value)} />
+                <input type="email" required placeholder="Email" onChange={(event) => setEmail(event.target.value)} />
 
 
-                <input type="text" placeholder="Username" onChange={(event) => setUserName(event.target.value)} />
+                <input type="text" required placeholder="Username" onChange={(event) => setUserName(event.target.value)} />
 
 
 
-                <input type="password" placeholder="Password" onChange={(event) => setPassword(event.target.value)} />
+                <input type="password" required placeholder="Password" onChange={(event) => setPassword(event.target.value)} />
 
-                <input type="password" placeholder="Confirm Password" onChange={(event) => setConfirmPassword(event.target.value)} />
+                <input type="password" required placeholder="Confirm Password" onChange={(event) => setConfirmPassword(event.target.value)} />
 
                 <input type="submit" value="Register" className="button"/>
 

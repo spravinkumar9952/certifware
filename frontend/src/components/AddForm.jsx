@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import swal from "sweetalert";
+import Cookies from "js-cookie";
 
 import { Form } from "react-router-dom";
 
@@ -28,8 +29,11 @@ const AddForm = (props) => {
         data.append('certificate_domain', domain);
         data.append('certificate_cred_id', id);
         data.append('certificate_cred_url', url);
+        const token = Cookies.get('token');
 
-        axios.post(fileUrl, data)
+        axios.post(fileUrl, data,{
+            headers: { Authorization: `Bearer ${token}`}
+        })
             .then((res) => {
                 swal(res.data);
             }).catch((err) => {
@@ -51,11 +55,11 @@ const AddForm = (props) => {
                         <form onSubmit={bind}>
                             <h1>Add Certificate</h1>
                             <h2>{msg}</h2>
-                            <input type="text" name='certificate_name' placeholder="Certificate Name" onChange={(event) => setName(event.target.value)} />
+                            <input type="text" name='certificate_name' required placeholder="Certificate Name" onChange={(event) => setName(event.target.value)} />
 
-                            <input type="text" name='certificate_domain' placeholder="domain" onChange={(event) => setDomain(event.target.value)} />
+                            <input type="text" name='certificate_domain' required placeholder="domain" onChange={(event) => setDomain(event.target.value)} />
 
-                            <input type="file" name="certificate" placeholder="Upload Certificate" onChange={(event) => setImage(event.target.files[0])} />
+                            <input type="file" className="file-input" required name="certificate" placeholder="Upload Certificate" onChange={(event) => setImage(event.target.files[0])} />
 
 
                             <input type="text" name='certificate_cred_id' placeholder="Credetial Id" onChange={(event) => setID(event.target.value)} />

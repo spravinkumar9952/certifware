@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import Logo from "../images/logo.png"
 import axios from "axios";
 
@@ -24,6 +24,9 @@ const Navbar = () => {
             </div>
             
             <div className="nav-links">
+                <Link to='/profile'>
+                    Profile
+                </Link>
                 <button className="danger-btn" onClick={() => logoutHandler() }>Logout</button>
             </div>
         </div>
