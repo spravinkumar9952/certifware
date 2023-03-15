@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import swal from "sweetalert";
 import Cookies from "js-cookie";
@@ -14,6 +14,7 @@ const AddForm = (props) => {
     const [url, setURL] = useState(null);
     const [state, setState] = useState(false);
     const [msg, setMsg] = useState("");
+    const [reload, setReload] = useState(0);
 
     const fileUrl = 'http://localhost:8080/upload';
        
@@ -30,19 +31,25 @@ const AddForm = (props) => {
         axios.post(fileUrl, data,{
             headers: { Authorization: `Bearer ${token}`}
         })
-            .then((res) => {
-                swal(res.data);
-            }).catch((err) => {
-                console.log(err);
-            })
+        .then((res) => {
+            swal(res.data);
+        }).catch((err) => {
+            console.log(err);
+        })
+
+        setReload((pre) => pre+1);
     }
+
+    useEffect(()=>{
+
+    },[reload]);
     // ---------------------------------------------------------------------------
     return (
         <>
             {
                 state || 
-                <div className="container">
-                    <button onClick={() => setState(!state)} className="btn">Add Certificate</button>
+                <div>
+                    <button onClick={() => setState(!state)} className="button">Add Certificate</button>
                 </div>
             }
             

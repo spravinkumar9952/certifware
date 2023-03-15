@@ -1,57 +1,44 @@
-import axios from "axios";
-import React, { useEffect } from "react";
-import { useState } from "react";
-import { Link,useNavigate } from "react-router-dom";
-import AddForm from "../components/AddForm";
-import Navbar from "../components/Navbar";
-import EditForm from "../components/EditForm";
-import swal from 'sweetalert';
-import Cookies from "js-cookie";
-import Footer from "../components/Footer";
+import axios from 'axios';
+import React from 'react'
+import { Route, useLocation} from 'react-router-dom';
+import Cookies from 'js-cookie';
+import { useEffect  } from 'react';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-// --------------------------------Main Page starts from here-------------------------------
-const UserPage = () => {
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
+import AddForm from '../components/AddForm';
+import AnonymousNavBar from '../components/AnonymousNavBar';
+
+
+
+export default function FindUser() {
     const navigate = useNavigate();
+    const {state}  = useLocation();
+    const {findUser} = state;
+
     const dispUrl = "http://localhost:8080/display";
     const [img, setImg] = useState([]);
-    const [reload, setReload] = useState(0);
-
     const token = Cookies.get('token');
-    console.log("USERPAGE "+ token);
-
-    const [isDeleted,setDeleted] = useState(false);
-    const [isEditable,setIsEditable] = useState(false);
-
-    const remove = (name) => {
-        axios.delete(`http://localhost:8080/delete/${name}`)
-        .then((response) => {
-            if(response==='success') {
-                setDeleted(true);
-            }
-        }).catch((err) => {
-            console.log(err);
-        })
-        setReload((pre) => pre+1);
-    }
-    
 
     useEffect(() => {
-        isDeleted || 
-        axios.get(dispUrl,{
+       
+        
+        console.log(findUser);
+        axios.get(`http://localhost:8080/findUser/${findUser}`,{
             headers: { Authorization: `Bearer ${token}`}
         })
         .then((res) =>{
-            if(isDeleted) {
-                setDeleted(false);
-            }
+            
             let map = new Map();
+
             res.data.forEach((obj) => {
                 const arrayBuffer = obj.img.data.data;
                 const base64String = btoa(new Uint8Array(arrayBuffer).reduce(function (data, byte) {
                     return data + String.fromCharCode(byte);
                 }, ''));
                 const certObj = {
-                    userName: obj.userName,
                     img : base64String,
                     certificateName : obj.certificateName,
                     creadentialId : obj.creadentialId,
@@ -65,24 +52,23 @@ const UserPage = () => {
                 }
             })
 
-            console.log(map);
             setImg(map);
         }).catch((e) => {
             navigate("/login", { replace: true })
         })
 
-        
-    }, [reload]);
+    }, [state])
 
-    const newState = (newState) => {
-        setIsEditable(newState);
+    const backToHome = () =>{
+        navigate("/userPage", {replace: true})
     }
-
 
     return (
         <>
-        <Navbar/>
-        <div className="container">        
+        <AnonymousNavBar/>
+        <div className="container">
+            
+            <button onClick={() => backToHome()} className="button">Back To Home</button>
             <div className="certificate-container">
                 {  
                     Array.from(img.entries()).map((entry) => {
@@ -94,17 +80,12 @@ const UserPage = () => {
                                 
                                 {
                                     value.map((obj) => {
-                        
                                         return (
-
                                             <div className="certificate-card">
                                                 <img className="certificate" src={`data:image/png;base64,${obj.img}`} alt=""/>
                                                 <p><span> Name : </span>{obj.certificateName}</p>
                                                 <p><span>Group :</span> {obj.group}</p>
-                                                <button className = "danger-btn" onClick={() => remove(obj.certificateName)}>Delete</button>
-                                                <button className = "danger-btn" onClick={() => setIsEditable(true)}>Edit</button>
-                                                {isEditable && <EditForm data={obj} editState={isEditable} newState={newState}/>}
-                                            </div>   
+                                            </div>
                                         )  
                                     })
                                 }
@@ -113,14 +94,10 @@ const UserPage = () => {
                         )
                     })
                 }
-                <AddForm/>
             </div>
-                    
+            
         </div>
         <Footer/>
         </>
     )
 }
-// -----------------------------------------------------------------------------------------
-
-export default UserPage;

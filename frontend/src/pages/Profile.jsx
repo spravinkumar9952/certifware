@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState} from 'react'
 import Navbar from '../components/Navbar'
 import Cookies from 'js-cookie';
+import Footer from '../components/Footer';
 
 export default function Profile() {
 
@@ -25,12 +26,16 @@ export default function Profile() {
     }, []);
 
     return (
-        <div>
-            <Navbar />
-            <div className="profile">
+        <>
+        <Navbar/>
+        <div className='container'>
+            
+            <div className="profile-card">
                 <h1>Name : {name}</h1>
                 <h1>No Of Certificates : {noOfCert}</h1>
             </div>
         </div>
+        <Footer/>
+        </>
     )
 }
