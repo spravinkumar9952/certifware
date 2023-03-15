@@ -16,11 +16,7 @@ const AddForm = (props) => {
     const [msg, setMsg] = useState("");
 
     const fileUrl = 'http://localhost:8080/upload';
-
-
-
-
-   
+       
     function bind(event) {
         event.preventDefault();
         const data = new FormData();
@@ -70,7 +66,6 @@ const AddForm = (props) => {
 
                             <button className="danger-btn" onClick={() => setState(!state)}>Cancel</button>
                         </form>
-
                 </div>
             )}
         </>

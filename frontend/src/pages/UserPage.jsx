@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Link,useNavigate } from "react-router-dom";
 import AddForm from "../components/AddForm";
 import Navbar from "../components/Navbar";
+import EditForm from "../components/EditForm";
 import swal from 'sweetalert';
 import Cookies from "js-cookie";
 import Footer from "../components/Footer";
@@ -19,6 +20,7 @@ const UserPage = () => {
     console.log("USERPAGE "+ token);
 
     const [isDeleted,setDeleted] = useState(false);
+    const [isEditable,setIsEditable] = useState(false);
 
     const remove = (name) => {
         axios.delete(`http://localhost:8080/delete/${name}`)
@@ -42,13 +44,13 @@ const UserPage = () => {
                 setDeleted(false);
             }
             let map = new Map();
-
             res.data.forEach((obj) => {
                 const arrayBuffer = obj.img.data.data;
                 const base64String = btoa(new Uint8Array(arrayBuffer).reduce(function (data, byte) {
                     return data + String.fromCharCode(byte);
                 }, ''));
                 const certObj = {
+                    userName: obj.userName,
                     img : base64String,
                     certificateName : obj.certificateName,
                     creadentialId : obj.creadentialId,
@@ -71,6 +73,10 @@ const UserPage = () => {
         
     }, []);
 
+    const newState = (newState) => {
+        setIsEditable(newState);
+    }
+
 
     return (
         <div className="container">
@@ -86,13 +92,17 @@ const UserPage = () => {
                                 
                                 {
                                     value.map((obj) => {
+                        
                                         return (
+
                                             <div className="certificate-card">
                                                 <img className="certificate" src={`data:image/png;base64,${obj.img}`} alt=""/>
                                                 <p><span> Name : </span>{obj.certificateName}</p>
                                                 <p><span>Group :</span> {obj.group}</p>
                                                 <button className = "danger-btn" onClick={() => remove(obj.certificateName)}>Delete</button>
-                                            </div>
+                                                <button className = "danger-btn" onClick={() => setIsEditable(true)}>Edit</button>
+                                                {isEditable && <EditForm data={obj} editState={isEditable} newState={newState}/>}
+                                            </div>   
                                         )  
                                     })
                                 }

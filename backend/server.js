@@ -129,6 +129,26 @@ app.post("/upload", verifyToken, imageUpload.single('certificate'), async (req, 
 })
 
 
+// UPDATE USER DETAILS
+app.put('/update', (req, res) => {
+    const obj = req.body;
+    console.log("RECEIVED: " + obj.userName)
+    Certificate.updateMany(
+        { userName: obj.userName, certificateName: obj.initialName},
+        { $set: { certificateName: obj.Name, creadentialId: obj.Id, creadentialUrl: obj.URL, group: obj.Domain } }
+    , (err, result) => {
+        if (err) {
+            console.log("error in upd");
+            res.send(err);
+        } else {
+            console.log("ffffffSuccess...");
+            console.log(result);
+            res.send('success');
+        }
+    })
+})
+
+
 
 app.get("/display", verifyToken, (req, res)=>{
 
