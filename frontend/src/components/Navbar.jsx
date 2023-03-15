@@ -8,10 +8,16 @@ import Cookies from "js-cookie";
 
 const Navbar = () => {
     const navigate = useNavigate();
+    const [findUser, setFindUser] = useState("");
 
     const logoutHandler = () =>{
         Cookies.remove("token");
         navigate("/login", { replace: true })
+    }
+
+    const handleSubmit = () => {
+        console.log(findUser);
+        navigate("/findUser", { replace: true, state : {findUser : findUser}});
     }
 
     return (
@@ -23,8 +29,9 @@ const Navbar = () => {
             
             <div className="nav-links">
                 <div>
-                    <input placeholder="Search the user"/>
-                    <button>Search</button>
+                    <input placeholder="Search the user" onChange={(event) => setFindUser(event.target.value)}/>
+
+                    <button onClick={() => handleSubmit()}>Search</button>
                 </div>
                 
                 <Link to='/profile' className="link">

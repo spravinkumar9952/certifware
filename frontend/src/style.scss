@@ -8,6 +8,7 @@ $card-color : #ce80e6;
 *{
     margin: 0;
     overflow-x: hidden;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
 
@@ -33,6 +34,15 @@ $card-color : #ce80e6;
         border-radius: 0.2rem;
         padding-left: 1rem;
         padding-right: 1rem;
+        border: 0;
+        color: white;
+        padding: 1rem;
+        margin: 1rem;
+
+        &:hover{
+            background-color: white;
+            color: black;
+        }
     }
     .auth{
         background-color: $bg-color;
@@ -98,6 +108,7 @@ $card-color : #ce80e6;
         padding: 1rem;
         width: 100vw;
         clear: both;
+    
 
         background-color: $nav-color;
 
@@ -143,8 +154,7 @@ $card-color : #ce80e6;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        // height: 100%;
-
+        min-height: calc(100vh - 5rem - 5rem);
 
     }
 
@@ -213,12 +223,23 @@ $card-color : #ce80e6;
     .footer{
         background-color: $nav-color;
         width: 100vw;
-        height: 10rem;
+        height: 5rem;
         color: white;
         display: flex;
         flex-direction: column;
         flex-wrap: wrap;
         justify-content: center;
         align-items: center;
+    }
+
+    .profile-card{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        background-color: $card-color;
+        width: 50rem;
+        height: 30rem;
     }
 }

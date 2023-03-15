@@ -143,6 +143,16 @@ app.get("/display", verifyToken, (req, res)=>{
     })
 })
 
+app.get("/findUser/:findName", (req, res) => {
+    Certificate.find({userName : req.params.findName}, (err, items) =>{
+        if(err){
+            res.status(500).send("Oops");
+        }else{
+            res.send(items);
+        }
+    })
+})
+
 app.delete('/delete/:name', (req, res) => {
     const name = req.params.name;
     Certificate.findOneAndDelete({certificateName:name}, (err,data) => {

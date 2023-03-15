@@ -10,6 +10,7 @@ import  Cookies  from "js-cookie";
 
 
 import "./style.scss"
+import FindUser from "./pages/FindUser";
 
 // URLs
 const regUrl="http://localhost:8080/register";
@@ -76,6 +77,7 @@ const Main=()=> {
                     <Route path="/login" element={<Login onSubmit={sendLoginUserDetails}/>}/>
                     <Route path="/userpage" element={<UserPage/>}/>
                     <Route path="/profile" element={<Profile/>}/>
+                    <Route path="/findUser" element={<FindUser/>}/>
                 </Routes>
             </BrowserRouter> 
         </div>
