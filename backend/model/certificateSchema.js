@@ -9,7 +9,7 @@ const certificateSchema = new mongoose.Schema({
     creadentialUrl: String,
 
     group:  String,
-
+    
     img:{
         data: Buffer,
         contentType: String
