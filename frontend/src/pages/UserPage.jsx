@@ -120,6 +120,7 @@ const UserPage = () => {
                 }
                 <AddForm reload={reload} handle={handle}/>
             </div>
+              
                     
         </div>
         <Footer/>
