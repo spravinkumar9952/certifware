@@ -180,10 +180,15 @@ $card-color : #ce80e6;
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
+                
                 align-items: center;
                 gap: 1rem;
                 width: 40rem;
-                height: 40rem;
+                // height: 40rem;
+
+                p, .danger-btn{
+                    overflow-y: hidden;
+                }
 
                 .certificate{
                     width: 100%;

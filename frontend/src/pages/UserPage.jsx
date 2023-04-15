@@ -20,7 +20,7 @@ const UserPage = () => {
     console.log("USERPAGE "+ token);
 
     const [isDeleted,setDeleted] = useState(false);
-    const [isEditable,setIsEditable] = useState(false);
+    const [isEditable,setIsEditable] = useState("");
 
     const remove = (name) => {
         axios.delete(`http://localhost:8080/delete/${name}`)
@@ -102,8 +102,8 @@ const UserPage = () => {
                                                 <p><span> Name : </span>{obj.certificateName}</p>
                                                 <p><span>Group :</span> {obj.group}</p>
                                                 <button className = "danger-btn" onClick={() => remove(obj.certificateName)}>Delete</button>
-                                                <button className = "danger-btn" onClick={() => setIsEditable(true)}>Edit</button>
-                                                {isEditable && <EditForm data={obj} editState={isEditable} newState={newState}/>}
+                                                <button className = "danger-btn" onClick={() => setIsEditable(obj.certificateName)}>Edit</button>
+                                                {isEditable === obj.certificateName && <EditForm data={obj} editState={isEditable} newState={newState}/>}
                                             </div>   
                                         )  
                                     })
