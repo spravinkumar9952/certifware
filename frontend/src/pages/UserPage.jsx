@@ -12,7 +12,7 @@ import Footer from "../components/Footer";
 // --------------------------------Main Page starts from here-------------------------------
 const UserPage = () => {
     const navigate = useNavigate();
-    const dispUrl = "http://localhost:8080/display";
+    const dispUrl = `${process.env.REACT_APP_API_HOST}/display`;
     const [img, setImg] = useState([]);
     const [reload, setReload] = useState(0);
 
@@ -23,7 +23,7 @@ const UserPage = () => {
     const [isEditable,setIsEditable] = useState("");
 
     const remove = (name) => {
-        axios.delete(`http://localhost:8080/delete/${name}`)
+        axios.delete(`${process.env.REACT_APP_API_HOST}/delete/${name}`)
         .then((response) => {
             if(response==='success') {
                 setDeleted(true);

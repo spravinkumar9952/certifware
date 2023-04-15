@@ -10,7 +10,8 @@ export default function Profile() {
     const [noOfCert, setNoOfCert] = useState(0);
     const [email, setEmail] = useState("");
     const [noOfGroups, setNoOfGroups] = useState(0);
-    const url = "http://localhost:3000/profile";
+    // const url = "http://localhost:3000/profile";
+    const url = `${process.env.REACT_APP_API_HOST}/profile`;
     const token = Cookies.get('token');
 
     useEffect(() =>{

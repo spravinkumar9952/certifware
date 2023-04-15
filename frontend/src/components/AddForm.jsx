@@ -16,7 +16,7 @@ const AddForm = (props) => {
     const [msg, setMsg] = useState("");
     const [reload, setReload] = useState(0);
 
-    const fileUrl = 'http://localhost:8080/upload';
+    const fileUrl = `${process.env.REACT_APP_API_HOST}/upload`;
        
     function bind(event) {
         event.preventDefault();

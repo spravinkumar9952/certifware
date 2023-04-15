@@ -9,17 +9,20 @@ import {BrowserRouter,Routes,Route,Link} from 'react-router-dom';
 import  Cookies  from "js-cookie";
 
 
+
 import "./style.scss"
 import FindUser from "./pages/FindUser";
 
 // URLs
-const regUrl="http://localhost:8080/register";
-const loginUrl="http://localhost:8080/login";
+const regUrl=`${process.env.REACT_APP_API_HOST}/register`;
+// const regUrl=`http://localhost:8080/register`;
+const loginUrl=`${process.env.REACT_APP_API_HOST}/login`;
 
 // Driver code
 const Main=()=> {
 
     // states
+    console.log(regUrl);
     const[pathFromReg, setPathfromReg] = useState(false)
     const[pathFromLogin, setPathfromLogin] = useState("")
     let token = "";

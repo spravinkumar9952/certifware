@@ -13,7 +13,7 @@ function EditForm(props) {
     const initialName = props.data.certificateName;
     
 
-    const updateUrl = 'http://localhost:8080/update';
+    const updateUrl = `${process.env.REACT_APP_API_HOST}/update`;
     const update = () => {
         const userName = props.data.userName;
         

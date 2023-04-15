@@ -35,6 +35,8 @@ app.use(session({
 }));
 app.use(passport.initialize());
 
+
+
 app.set('view engine', 'ejs');
 
 passport.use(User.createStrategy());

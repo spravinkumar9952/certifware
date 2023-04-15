@@ -18,7 +18,7 @@ export default function FindUser() {
     const {state}  = useLocation();
     const {findUser} = state;
 
-    const dispUrl = "http://localhost:8080/display";
+    const dispUrl = `${process.env.REACT_APP_API_HOST}/display`;
     const [img, setImg] = useState([]);
     const token = Cookies.get('token');
 
@@ -26,7 +26,7 @@ export default function FindUser() {
        
         
         console.log(findUser);
-        axios.get(`http://localhost:8080/findUser/${findUser}`,{
+        axios.get(`${process.env.REACT_APP_API_HOST}/findUser/${findUser}`,{
             headers: { Authorization: `Bearer ${token}`}
         })
         .then((res) =>{
