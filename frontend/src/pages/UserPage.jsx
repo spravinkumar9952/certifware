@@ -78,6 +78,11 @@ const UserPage = () => {
         setIsEditable(newState);
     }
 
+    const handle = (val) => {
+        console.log("val "+val);
+        setReload(val);
+    }
+
 
     return (
         <>
@@ -113,7 +118,7 @@ const UserPage = () => {
                         )
                     })
                 }
-                <AddForm/>
+                <AddForm reload={reload} handle={handle}/>
             </div>
               
                     

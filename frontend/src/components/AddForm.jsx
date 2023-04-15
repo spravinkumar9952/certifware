@@ -33,16 +33,17 @@ const AddForm = (props) => {
         })
         .then((res) => {
             swal(res.data);
+            setState(false);
         }).catch((err) => {
             console.log(err);
         })
 
-        setReload((pre) => pre+1);
+        props.handle(1-props.reload);
     }
 
-    useEffect(()=>{
+    // useEffect(()=>{
 
-    },[reload]);
+    // },[reload]);
     // ---------------------------------------------------------------------------
     return (
         <>
