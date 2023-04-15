@@ -149,7 +149,6 @@ app.put('/update', (req, res) => {
 })
 
 
-
 app.get("/display", verifyToken, (req, res)=>{
 
     const userName = res.locals.userName;
